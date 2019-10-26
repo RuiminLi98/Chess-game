@@ -2,8 +2,10 @@ package structure;
 
 public class Knight extends Cell{
 
-	public Knight(String cellName, String pieceName, boolean isAlive) {
-		super(cellName, pieceName, isAlive);
+	
+
+	public Knight(String cellName, String pieceName, boolean isAlive, int x, int y) {
+		super(cellName, pieceName, isAlive, x, y);
 		// TODO Auto-generated constructor stub
 	}
 
