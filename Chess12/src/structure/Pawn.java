@@ -23,7 +23,19 @@ public class Pawn extends Cell implements PawnPromotion{
 		super(cellName, pieceName, isAlive, x, y);
 		
 	}
+    public boolean Enpassant(String currName, int currX, int currY, int tarX, int tarY)
+    {
+    	if(currName=="wp" && Chess.board[tarX-1][tarY].pieceName.equals("bp") && currX==tarX-1 && (currY==tarY+1 || currY==tarY-1) && currX==4 && Chess.board[tarX][tarY].pieceName.equals("empty"))
+    	{
+    		return true;
+    	}
+    	if(currName=="bp" && Chess.board[tarX+1][tarY].pieceName.equals("wp") && currX==tarX+1 && (currY==tarY+1 || currY==tarY-1) && currX==3 && Chess.board[tarX][tarY].pieceName.equals("empty"))
+    	{
 
+    		return true;
+    	}
+    	return false;
+    }
     public void CheckTransPawnForW(int i, int x, int y)
     {
     	if(i==7)
@@ -142,10 +154,16 @@ public class Pawn extends Cell implements PawnPromotion{
 				return true;
 			}
 		}
-		else if(currX!=0 && currX!=7)
+		else if((currX==2 || currX==3 ||currX==4 || currX==5 || currX==6) && pieceName.contentEquals("wp"))
 		{
-			if(pieceName.equals("wp"))
-			{
+				if(Enpassant("wp", currX, currY, tarX, tarY))
+				{
+		    		String temp3=Chess.board[tarX-1][tarY].cellName;
+		    		Chess.board[tarX-1][tarY]=new Empty(temp3,"empty",false,tarX-1,tarY);
+		    		jump(currX,currY,tarX,tarY);
+					CheckTransPawnForW(tarX,tarX,tarY);
+					return true;
+				}
 				if(tarX==currX+1 && tarY==currY && Chess.board[currX+1][currY].pieceName.equals("empty"))
 				{
 					jump(currX,currY,tarX,tarY);
@@ -166,30 +184,37 @@ public class Pawn extends Cell implements PawnPromotion{
 					CheckTransPawnForW(tarX,tarX,tarY);
 					return true;
 				}
-			}
-			if(pieceName.equals("bp"))
+		}
+		else if((currX==2 || currX==3 ||currX==4 || currX==5 || currX==6) && pieceName.contentEquals("bp"))
+		{
+			if(Enpassant("bp",currX, currY, tarX, tarY))
 			{
-				if(tarX==(currX-1) && tarY==currY && Chess.board[currX-1][currY].pieceName.equals("empty"))
-				{
-					CheckTransPawnForB(tarX, tarX, tarY);
+				String temp3=Chess.board[tarX+1][tarY].cellName;
+				Chess.board[tarX+1][tarY]=new Empty(temp3,"empty",false,tarX+1,tarY);
+				jump(currX,currY,tarX,tarY);
+				CheckTransPawnForB(tarX, tarX, tarY);
+				return true;
+			}
+			if(tarX==(currX-1) && tarY==currY && Chess.board[currX-1][currY].pieceName.equals("empty"))
+			{
 					jump(currX,currY,tarX,tarY);
+					CheckTransPawnForB(tarX, tarX, tarY);
 					return true;
-				}
+			}
 				else if(tarX==(currX-1) && tarY==currY && !(Chess.board[currX-1][currY].pieceName.equals("empty")))
 					return false;
 				else if(tarX==currX-1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX-1][currY-1].pieceName)) && !(Chess.board[currX-1][currY-1].pieceName.contentEquals("empty"))&& tarY>=0)
 				{
-					CheckTransPawnForB(tarX, tarX, tarY);
 					jump(currX,currY,tarX,tarY);
+					CheckTransPawnForB(tarX, tarX, tarY);
 					return true;
 				}
 				else if(tarX==currX-1 && tarY == (currY+1) && !(Ownside(pieceName, Chess.board[currX-1][currY+1].pieceName)) && !(Chess.board[currX-1][currY+1].pieceName.contentEquals("empty")) && tarY<=7)
 				{
-					CheckTransPawnForB(tarX, tarX, tarY);
 					jump(currX,currY,tarX,tarY);
+					CheckTransPawnForB(tarX, tarX, tarY);
 					return true;
 				}
-			}
 		}
 		
 			return false;
