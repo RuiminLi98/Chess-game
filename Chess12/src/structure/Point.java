@@ -131,8 +131,48 @@ public class Point {
 		return false;
 	}
 
-	private static boolean threatFromPorN(Point kLoc) {
-		// TODO Auto-generated method stub
+	private static boolean threatFromPorN(Point kLoc) {		
+		if(kLoc.x==4 && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		{
+			if(Chess.board[(kLoc.x)-1][kLoc.y].pieceName.equals("wp") || Chess.board[(kLoc.x)-2][kLoc.y].pieceName.equals("wp"))
+				return true;
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("wN"))
+				return true;
+		}
+		if((kLoc.x==3 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7 || kLoc.x==8) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		{
+			if(Chess.board[(kLoc.x)-1][kLoc.y].pieceName.equals("wp"))
+				return true;
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("wN"))
+				return true;
+		}
+		if((kLoc.x==2 || kLoc.x==1) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		{
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("wN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("wN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("wN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("wN"))
+				return true;
+		}
+
+
+		
+		if(kLoc.x==5 && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+		{
+			if(Chess.board[(kLoc.x)+1][kLoc.y].pieceName.equals("bp") || Chess.board[(kLoc.x)+2][kLoc.y].pieceName.equals("bp"))
+				return true;
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("bN"))
+				return true;
+		}
+		if((kLoc.x==3 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7 || kLoc.x==8) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+		{
+			if(Chess.board[(kLoc.x)+1][kLoc.y].pieceName.equals("bp"))
+				return true;
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("bN"))
+				return true;
+		}
+		if((kLoc.x==2 || kLoc.x==1) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		{
+			if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)-1].pieceName.equals("bN") || Chess.board[(kLoc.x)+2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN") || Chess.board[(kLoc.x)-2][(kLoc.y)-1].pieceName.equals("bN") ||Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("bN"))
+				return true;
+		}
 		return false;
 	}
 
