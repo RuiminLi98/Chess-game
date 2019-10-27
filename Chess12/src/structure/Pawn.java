@@ -170,7 +170,7 @@ public class Pawn extends Cell implements PawnPromotion{
 					CheckTransPawnForW(tarX,tarX,tarY);
 					return true;
 				}
-				else if(tarX==currX+1 && tarY==currX && !(Chess.board[currX+1][currY].pieceName.equals("empty")))
+				else if(tarX==currX+1 && tarY==currY && !(Chess.board[currX+1][currY].pieceName.equals("empty")))
 					return false;
 				else if(tarX==currX+1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX+1][currY-1].pieceName)) && !(Chess.board[currX+1][currY-1].pieceName.contentEquals("empty"))&& tarY>=0)
 				{
