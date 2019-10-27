@@ -132,15 +132,29 @@ public class Chess {
 			if(count%2==0) {
 				System.out.print("White's move: ");
 				 start=sc.next();
+				 if(start.equals("resign"))
+				 {
+					 System.out.println("Black wins");
+					 return;
+				 }				 
+				 else
+				 {
 				 end=sc.next();
 				 turn='w';
-				System.out.println();
+				System.out.println();}
 			}else {
 				System.out.print("Black's move: ");
 				 start=sc.next();
+				 if(start.equals("resign"))
+				 {
+					 System.out.println("White wins");
+					 return;
+				 }
+				 else
+				 {
 				 end=sc.next();
 				 turn='b';
-				System.out.println();
+				System.out.println();}
 			}
 			count++;
 			int curX=parseLocation(start.charAt(1));
@@ -160,7 +174,6 @@ public class Chess {
 				printBoard();
 
 		}
-
 	}
 
 }
