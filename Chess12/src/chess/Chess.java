@@ -15,7 +15,7 @@ public class Chess {
 	
 	public static boolean WCheck;
 	public static boolean BCheck;
-	
+	public static boolean draw_flag;
 	
 	public static void Initialize(){
 		CastlingBL=true;
@@ -119,6 +119,7 @@ public class Chess {
 		if(Point.check(BKLoc))return 2;
 		return 0;
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Initialize();
@@ -129,22 +130,42 @@ public class Chess {
 			String start="";
 			String end="";
 			char turn=' ';
-			if(count%2==0) {
+			String line="";
+			if(count%2==0) 
 				System.out.print("White's move: ");
-				 start=sc.next();
+				
+			else
+				System.out.print("Black's move: ");
+			line=sc.nextLine();
+			String[] a=line.split(" ");
+			int num=a.length;
+			start=a[0];
+			if(start.equals("draw") && draw_flag==true)
+			 {
+				
+				System.out.println("We draw successfully");
+				 return;
+			 }
+			else 
+			{
+				draw_flag=false;
+			}
+			if(count%2==0) {
 				 if(start.equals("resign"))
 				 {
 					 System.out.println("Black wins");
 					 return;
-				 }				 
+				 }	 
 				 else
 				 {
-				 end=sc.next();
+				 end=a[1];
+				 	if(num==3) {
+				 		if(a[2].equals("draw?"))
+				 			draw_flag=true;}
 				 turn='w';
-				System.out.println();}
+				 System.out.println();}
 			}else {
-				System.out.print("Black's move: ");
-				 start=sc.next();
+				
 				 if(start.equals("resign"))
 				 {
 					 System.out.println("White wins");
@@ -152,9 +173,13 @@ public class Chess {
 				 }
 				 else
 				 {
-				 end=sc.next();
+				 end=a[1];
+				 	if(num==3) {
+				 		if(a[2].equals("draw?"))
+				 			draw_flag=true;}
 				 turn='b';
-				System.out.println();}
+				System.out.println();
+				 		}
 			}
 			count++;
 			int curX=parseLocation(start.charAt(1));
