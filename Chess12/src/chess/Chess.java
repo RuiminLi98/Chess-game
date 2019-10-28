@@ -16,6 +16,7 @@ public class Chess {
 	public static boolean WCheck;
 	public static boolean BCheck;
 	public static boolean draw_flag;
+	public static String []a;
 
 	public static void Initialize(){
 		CastlingBL=true;
@@ -137,7 +138,7 @@ public class Chess {
 			else
 				System.out.print("Black's move: ");
 			line=sc.nextLine();
-			String[] a=line.split(" ");
+			a=line.split(" ");
 			int num=a.length;
 			start=a[0];
 			if(start.equals("draw") && draw_flag==true)
