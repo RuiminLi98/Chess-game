@@ -183,10 +183,10 @@ public class Point {
 			if((kLoc.x)+1 <=7 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("wN"))
 						return true;
-			if((kLoc.x)-1 >=0 && (kLoc.y)+2>=7)
+			if((kLoc.x)-1 >=0 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("wN"))
 					return true;
-			if((kLoc.x)-2 <=0 && (kLoc.y)+1<=7)
+			if((kLoc.x)-2 >=0 && (kLoc.y)+1<=7)
 				if(Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("wN"))
 					return true;
 			if((kLoc.x)-2 >=0 && (kLoc.y)-1>=0)
@@ -213,10 +213,10 @@ public class Point {
 			if((kLoc.x)+1 <=7 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN"))
 						return true;
-			if((kLoc.x)-1 >=0 && (kLoc.y)+2>=7)
+			if((kLoc.x)-1 >=0 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN"))
 					return true;
-			if((kLoc.x)-2 <=0 && (kLoc.y)+1<=7)
+			if((kLoc.x)-2 >=0 && (kLoc.y)+1<=7)
 				if(Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN"))
 					return true;
 			if((kLoc.x)-2 >=0 && (kLoc.y)-1>=0)
@@ -250,10 +250,10 @@ public class Point {
 			if((kLoc.x)+1 <=7 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN"))
 						return true;
-			if((kLoc.x)-1 >=0 && (kLoc.y)+2>=7)
+			if((kLoc.x)-1 >=0 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN"))
 					return true;
-			if((kLoc.x)-2 <=0 && (kLoc.y)+1<=7)
+			if((kLoc.x)-2 >=0 && (kLoc.y)+1<=7)
 				if(Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN"))
 					return true;
 			if((kLoc.x)-2 >=0 && (kLoc.y)-1>=0)
@@ -277,10 +277,10 @@ public class Point {
 			if((kLoc.x)+1 <=7 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)+2].pieceName.equals("bN"))
 						return true;
-			if((kLoc.x)-1 >=0 && (kLoc.y)+2>=7)
+			if((kLoc.x)-1 >=0 && (kLoc.y)+2<=7)
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)+2].pieceName.equals("bN"))
 					return true;
-			if((kLoc.x)-2 <=0 && (kLoc.y)+1<=7)
+			if((kLoc.x)-2 >=0 && (kLoc.y)+1<=7)
 				if(Chess.board[(kLoc.x)-2][(kLoc.y)+1].pieceName.equals("bN"))
 					return true;
 			if((kLoc.x)-2 >=0 && (kLoc.y)-1>=0)
