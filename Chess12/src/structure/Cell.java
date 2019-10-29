@@ -6,7 +6,8 @@ public abstract class Cell {
 	public String cellName;
 	public String pieceName;
 	public boolean isAlive;
-	int x,y;
+	public int x;
+	public int y;
 	public Cell(String cellName,String pieceName,boolean isAlive,int x,int y) {
 		this.cellName=cellName;
 		this.pieceName=pieceName;

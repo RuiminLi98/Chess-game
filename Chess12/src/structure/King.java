@@ -37,35 +37,47 @@ public class King extends Cell{
 			else {
 				Cell target=Chess.board[tarX][tarY];
 				Cell curr=Chess.board[currX][currY];
-				if(target.isAlive&&!Point.isEnemy(target, curr)&&target.pieceName.charAt(1)=='R') {
+//				if(target.isAlive&&!Point.isEnemy(target, curr)&&target.pieceName.charAt(1)=='R') {
 					// Castling
 					if(curr.pieceName.charAt(0)=='w') {
-						if(tarY==0&&Chess.CastlingWL&&!haveObs(currX, currY, tarY)&&!Chess.WCheck) {
+						if(tarX==0&&tarY==2&&Chess.CastlingWL&&!haveObs(currX, currY, 0)&&!Point.check(new Point(0,4))
+								&&!Point.check(new Point(0,3))
+								&&!Point.check(new Point(0,2))
+								&&Chess.board[0][0].isAlive
+								&&!Point.isEnemy(Chess.board[0][0], curr)
+								&&Chess.board[0][0].pieceName.charAt(1)=='R'
+								) {
 							// white Castling long
-							jump(currX, currY, tarX, tarY+1);
-							jump(tarX,tarY,tarX,tarY+2);
+							jump(currX, currY, tarX, currY-2);
+							jump(0,0,0,currY-1);
 							
-							if(Point.check(new Point(tarX, tarY+1))) {
-								jump(tarX, tarY+1,currX, currY);
-								jump(tarX,tarY+2,tarX,tarY);
-								return false;
-							}
+//							if(Point.check(new Point(tarX, tarY+1))) {
+//								jump(tarX, currY-2,currX, currY );
+//								jump(0,currY-1,0,0);
+//								return false;
+//							}
 							
 							Chess.CastlingWL=false;
 							Chess.CastlingWL=false;
 							return true;
 
 						}
-						if(tarY==7&&Chess.CastlingWS&&!haveObs(currX, currY, tarY)&&!Chess.WCheck) {
+						if(tarX==0&&tarY==6&&Chess.CastlingWS&&!haveObs(currX, currY, 7)&&!Point.check(new Point(0,4))
+								&&!Point.check(new Point(0,5))
+								&&!Point.check(new Point(0,6))
+								&&Chess.board[0][7].isAlive
+								&&!Point.isEnemy(Chess.board[0][7], curr)
+								&&Chess.board[0][7].pieceName.charAt(1)=='R'
+								) {
 							// white Castling short
-							jump(currX, currY, tarX, tarY-1);
-							jump(tarX,tarY,tarX,tarY-2);
+							jump(currX, currY, tarX, currY+2);
+							jump(0,7,0,currY+1);
 							
-							if(Point.check(new Point(tarX, tarY-1))) {
-								jump(tarX, tarY-1,currX, currY);
-								jump(tarX,tarY-2,tarX,tarY);
-								return false;
-							}
+//							if(Point.check(new Point(tarX, tarY-1))) {
+//								jump(tarX, currY+2,currX, currY );
+//								jump(0,currY+1,0,7);
+//								return false;
+//							}
 							
 							Chess.CastlingWL=false;
 							Chess.CastlingWL=false;
@@ -74,32 +86,44 @@ public class King extends Cell{
 
 					}else {
 						// black
-						if(tarY==7&&Chess.CastlingBS&&!haveObs(currX, currY, tarY)&&!Chess.BCheck) {
+						if(tarX==7&&tarY==6&&Chess.CastlingBS&&!haveObs(currX, currY, 7)&&!Point.check(new Point(7,4))
+								&&!Point.check(new Point(7,5))
+								&&!Point.check(new Point(7,6))
+								&&Chess.board[7][7].isAlive
+								&&!Point.isEnemy(Chess.board[7][7], curr)
+								&&Chess.board[7][7].pieceName.charAt(1)=='R'
+								) {
 							// black Castling short
-							jump(currX, currY, tarX, tarY-1);
-							jump(tarX,tarY,tarX,tarY-2);
+							jump(currX, currY, currX, currY-2);
+							jump(7,0,7,currY-1);
 							
-							if(Point.check(new Point(tarX, tarY-1))) {
-								jump(tarX, tarY-1,currX, currY);
-								jump(tarX,tarY-2,tarX,tarY);
-								return false;
-							}
+//							if(Point.check(new Point(tarX, tarY-1))) {
+//								jump(currX, currY-2,currX, currY);
+//								jump(7,currY-1,7,0);
+//								return false;
+//							}
 							
 							Chess.CastlingBL=false;
 							Chess.CastlingBL=false;
 							return true;
 
 						}
-						if(tarY==0&&Chess.CastlingBL&&!haveObs(currX, currY, tarY)&&!Chess.BCheck) {
+						if(tarX==7&&tarY==2&&Chess.CastlingBL&&!haveObs(currX, currY, 0)&&!Point.check(new Point(7,4))
+								&&!Point.check(new Point(7,3))
+								&&!Point.check(new Point(7,2))
+								&&Chess.board[7][0].isAlive
+								&&!Point.isEnemy(Chess.board[7][0], curr)
+								&&Chess.board[7][0].pieceName.charAt(1)=='R'
+								) {
 							// black Castling long
-							jump(currX, currY, tarX, tarY+1);
-							jump(tarX,tarY,tarX,tarY+2);
+							jump(currX, currY, currX, currY+2);
+							jump(7,7,7,currY+1);
 							
-							if(Point.check(new Point(tarX, tarY+1))) {
-								jump(tarX, tarY+1,currX, currY);
-								jump(tarX,tarY+2,tarX,tarY);
-								return false;
-							}
+//							if(Point.check(new Point(tarX, tarY+1))) {
+//								jump(currX, currY+2,currX, currY );
+//								jump(7,currY+1,7,7);
+//								return false;
+//							}
 							
 							Chess.CastlingBL=false;
 							Chess.CastlingBL=false;
@@ -107,7 +131,7 @@ public class King extends Cell{
 						}
 
 					}
-				}
+//				}
 			}
 		}
 		return false;

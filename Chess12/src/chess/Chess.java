@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import structure.*;
@@ -13,8 +14,8 @@ public class Chess {
 	public static boolean CastlingBS;
 	public static boolean CastlingWS;
 
-	public static boolean WCheck;
-	public static boolean BCheck;
+//	public static boolean WCheck;
+//	public static boolean BCheck;
 	public static boolean draw_flag;
 	public static String []a;
 
@@ -23,8 +24,8 @@ public class Chess {
 		CastlingWL=true;
 		CastlingBS=true;
 		CastlingWS=true;
-		WCheck=false;
-		BCheck=false;
+//		WCheck=false;
+//		BCheck=false;
 		board=new Cell[8][8];
 		board[0][0]=new Rook("##", "wR", true, 0, 0);
 		board[0][1]=new Knight("  ", "wN", true, 0, 1);
@@ -34,7 +35,7 @@ public class Chess {
 		board[0][5]=new Bishop("  ", "wB", true, 0, 5);
 		board[0][6]=new Knight("##", "wN", true, 0, 6);
 		//
-//		board[0][6]=new Empty("##", "empty", false, 0, 6);
+		//		board[0][6]=new Empty("##", "empty", false, 0, 6);
 		//
 		board[0][7]=new Rook("  ", "wR", true, 0, 7);
 
@@ -59,8 +60,8 @@ public class Chess {
 
 		for(int i=0;i<8;i+=2) {
 			//
-//			board[1][i]=new Empty("  ", "empty", false, 1, i);
-//			board[6][i]=new Empty("##", "empty", false, 6, i);
+			//			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			//			board[6][i]=new Empty("##", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("##", "empty", false, 2, i);
 			board[3][i]=new Empty("  ", "empty", false, 3, i);
@@ -69,8 +70,8 @@ public class Chess {
 		}
 		for(int i=1;i<8;i+=2) {
 			//
-//			board[1][i]=new Empty("##", "empty", false, 1, i);
-//			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			//			board[1][i]=new Empty("##", "empty", false, 1, i);
+			//			board[6][i]=new Empty("  ", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("  ", "empty", false, 2, i);
 			board[3][i]=new Empty("##", "empty", false, 3, i);
@@ -121,6 +122,148 @@ public class Chess {
 		return 0;
 	}
 
+	public static boolean Illegalmove(char turn,int curX,int curY,int tarX,int tarY) {
+		switch(isCheckmate()) {
+		case 0:{
+			return false;
+		}
+		case 1:{
+			if(turn=='w') {
+				Chess.board[curX][curY].move(tarX, tarY,curX, curY);
+				return true;
+			}
+			break;
+		}
+		case 2:{
+			if(turn=='b') {
+				Chess.board[curX][curY].move(tarX, tarY,curX, curY);
+				return true;
+			}
+			break;
+		}
+		case 3:{
+			break;
+		}
+
+		}
+		return false;
+	}
+	
+	public static ArrayList<Point> findPath(Point p1,Point p2){
+		ArrayList<Point> path=new ArrayList<Point>();
+		if(p1.x==p2.x) {
+			for(int i=Math.min(p1.y, p2.y)+1;i<Math.max(p1.y, p2.y);i++) {
+				path.add(new Point(p1.x,i));
+			}
+		}else if(p1.y==p2.y) {
+			for(int i=Math.min(p1.x, p2.x)+1;i<Math.max(p1.x, p2.x);i++) {
+				path.add(new Point(i,p1.y));
+			}
+		}else {
+			if(p1.x<p2.x&&p1.y<p2.y) {
+				for(int i=p1.x+1,j=p1.y+1;i<p2.x&&j<p2.y;i++,j++) {
+					path.add(new Point(i,j));
+				}
+			}else if(p1.x>p2.x&&p1.y<p2.y){
+				for(int i=p1.x-1,j=p1.y+1;i>p2.x&&j<p2.y;i--,j++) {
+					path.add(new Point(i,j));
+				}
+			}else if(p1.x<p2.x&&p1.y>p2.y){
+				for(int i=p1.x+1,j=p1.y-1;i<p2.x&&j>p2.y;i++,j--) {
+					path.add(new Point(i,j));
+				}
+			}else {
+				for(int i=p1.x-1,j=p1.y-1;i>p2.x&&j>p2.y;i--,j--) {
+					path.add(new Point(i,j));
+				}
+			}
+		}
+		return path;
+	}
+	
+	public static boolean checkToDeath(char turn) {
+		Point kLoc;
+		if(turn=='w') {
+			//black
+			 kLoc=Point.getLocation("bK");
+		}else {
+			//white
+			kLoc=Point.getLocation("wK");
+		}
+		if(Point.check(kLoc)) {
+			if(Point.inScale(kLoc.x-1, kLoc.y-1)) {
+				Cell c=Chess.board[kLoc.x-1][kLoc.y-1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			
+			if(Point.inScale(kLoc.x-1, kLoc.y)) {
+				Cell c=Chess.board[kLoc.x-1][kLoc.y];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			
+			if(Point.inScale(kLoc.x-1, kLoc.y+1)) {
+				Cell c=Chess.board[kLoc.x-1][kLoc.y+1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			if(Point.inScale(kLoc.x, kLoc.y-1)) {
+				Cell c=Chess.board[kLoc.x][kLoc.y-1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			if(Point.inScale(kLoc.x, kLoc.y+1)) {
+				Cell c=Chess.board[kLoc.x][kLoc.y+1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			if(Point.inScale(kLoc.x+1, kLoc.y-1)) {
+				Cell c=Chess.board[kLoc.x+1][kLoc.y-1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			if(Point.inScale(kLoc.x+1, kLoc.y)) {
+				Cell c=Chess.board[kLoc.x+1][kLoc.y];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			if(Point.inScale(kLoc.x+1, kLoc.y+1)) {
+				Cell c=Chess.board[kLoc.x+1][kLoc.y+1];
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+					return false;
+				}
+			}
+			
+			Cell threat=Point.findCheck(kLoc);
+			if(Point.check(new Point(threat.x,threat.y)))return false;
+			if(threat.pieceName.charAt(1)=='N')return true;
+			
+			ArrayList<Point> path= findPath(kLoc,new Point(threat.x,threat.y));
+			for(Point p:path) {
+				if(Point.checkFromSelf(p)) {
+					return false;
+				}
+			}
+			
+			return true;
+			}
+		
+		
+		
+		return false;
+		
+		
+		
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Initialize();
@@ -144,7 +287,7 @@ public class Chess {
 			if(start.equals("draw") && draw_flag==true)
 			{
 
-				System.out.println("We draw successfully");
+//				System.out.println("We draw successfully");
 				return;
 			}
 			else
@@ -187,72 +330,103 @@ public class Chess {
 			int curY=parseLocation(start.charAt(0));
 			int tarX=parseLocation(end.charAt(1));
 			int tarY=parseLocation(end.charAt(0));
-			while((Chess.board[curX][curY].pieceName.charAt(0)!=turn)||!Chess.board[curX][curY].move(curX, curY, tarX, tarY)) {
+			while((Chess.board[curX][curY].pieceName.charAt(0)!=turn)||!Chess.board[curX][curY].move(curX, curY, tarX, tarY)
+					||Illegalmove(turn, curX, curY, tarX, tarY)) {
 				System.out.print("Illegal move, try again: ");
 				if(count%2==1) {  turn='w';
-					line=sc.nextLine();
-					a=line.split(" ");
-					num=a.length;
-					start=a[0];
-					if(start.equals("draw") && draw_flag==true)
-					{
+				line=sc.nextLine();
+				a=line.split(" ");
+				num=a.length;
+				start=a[0];
+				if(start.equals("draw") && draw_flag==true)
+				{
 
-						System.out.println("We draw successfully");
-						return;
-					}
-					else
-					{
-						draw_flag=false;
-					}
-					if(start.equals("resign"))
-					{
-						System.out.println("Black wins");
-						return;
-					}
-					else
-					{
-						end=a[1];
-						if(num==3) {
-							if(a[2].equals("draw?"))
-								draw_flag=true;}
-						System.out.println();}}
+//					System.out.println("We draw successfully");
+					return;
+				}
+				else
+				{
+					draw_flag=false;
+				}
+				if(start.equals("resign"))
+				{
+					System.out.println("Black wins");
+					return;
+				}
+				else
+				{
+					end=a[1];
+					if(num==3) {
+						if(a[2].equals("draw?"))
+							draw_flag=true;}
+					System.out.println();}}
 				else
 				{turn='b';
-					line=sc.nextLine();
-					a=line.split(" ");
-					num=a.length;
-					start=a[0];
-					if(start.equals("draw") && draw_flag==true)
-					{
+				line=sc.nextLine();
+				a=line.split(" ");
+				num=a.length;
+				start=a[0];
+				if(start.equals("draw") && draw_flag==true)
+				{
 
-						System.out.println("We draw successfully");
-						return;
-					}
-					else
-					{
-						draw_flag=false;
-					}
-					if(start.equals("resign"))
-					{
-						System.out.println("Black wins");
-						return;
-					}
-					else
-					{
-						end=a[1];
-						if(num==3) {
-							if(a[2].equals("draw?"))
-								draw_flag=true;}
-						System.out.println();}
+//					System.out.println("We draw successfully");
+					return;
+				}
+				else
+				{
+					draw_flag=false;
+				}
+				if(start.equals("resign"))
+				{
+					System.out.println("Black wins");
+					return;
+				}
+				else
+				{
+					end=a[1];
+					if(num==3) {
+						if(a[2].equals("draw?"))
+							draw_flag=true;}
+					System.out.println();}
 				}
 				curX=parseLocation(start.charAt(1));
 				curY=parseLocation(start.charAt(0));
 				tarX=parseLocation(end.charAt(1));
 				tarY=parseLocation(end.charAt(0));
 			}
+			
+			
+			
 			printBoard();
+			Point kLoc;
+			if(turn=='w') {
+				//black
+				 kLoc=Point.getLocation("bK");
+				 if(Point.check(kLoc)) {
+					 if(checkToDeath(turn)) {
+						 System.out.println("Checkmate\n White wins");
+						 return;
+					 }
+				 }else {
+					 System.out.println("Check");
+				 }
+			}else {
+				//white
+				kLoc=Point.getLocation("wK");
+				if(Point.check(kLoc)) {
+					 if(checkToDeath(turn)) {
+						 System.out.println("Checkmate\n Black wins");
+						 return;
+					 }
+				 }else {
+					 System.out.println("Check");
+				 }
+			}
+			
 
 		}
+		
 	}
 
 }
+
