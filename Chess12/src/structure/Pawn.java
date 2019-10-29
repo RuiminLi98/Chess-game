@@ -97,7 +97,7 @@ public class Pawn extends Cell implements PawnPromotion{
 				temp=Chess.a[2];
 			}
 			String celln1=temp;
-			TransPawnForW(temp,celln1,x,y);
+			TransPawnForB(temp,celln1,x,y);
 		}
 	}
 	public void TransPawnForB(String str,String celln, int x, int y)
