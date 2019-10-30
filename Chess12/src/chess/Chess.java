@@ -14,6 +14,10 @@ public class Chess {
 	public static boolean CastlingBS;
 	public static boolean CastlingWS;
 	
+	public static boolean enpassant_flag=false;
+	public static int enpassant_flagx=0;
+	public static int enpassant_flagy=0;
+	
 	public static boolean CastlingWLPrev;
 	public static boolean CastlingBLPrev;
 	public static boolean CastlingBSPrev;
