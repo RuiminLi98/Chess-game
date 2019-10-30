@@ -5,8 +5,24 @@ import java.util.*;
 import chess.Chess;
 
 
+/** 
+ * @author Junjie He jh1285
+ * @author Ruimin Li rl751
+ */
+
+/**
+ * This is the subclass Pawn which extends the abstract class Cell. 
+ * The Pawn class implements the movement of Pawn piece on the board.
+ */
 public class Pawn extends Cell implements PawnPromotion{
 
+
+	/**
+	 * This method judge if the piece named "named2" is on the same side of the piece named name2
+	 * @param name1 The piecename of the first piece
+	 * @param name2 The piecename of the second piece
+	 * @return if they are on the same side, then return true. Otherwise, false.
+	 */
 	public boolean Ownside(String name1,String name2)
 	{
 		switch (name1) {
@@ -20,10 +36,28 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 		}
 	}
+	/**
+	 * Initialize the Pawn object with cellName, pieceName, isAlive, x, y.
+	 * @param cellName The cell's name, such as "##" or "  ",which is under the Pawn piece. 
+	 * @param pieceName The Pawn piece's name, such as "wR" or "bR".
+	 * @param isAlive The boolean value to show whether the piece is alive on the board.
+	 * @param x The x-coordinate of the piece on the board. 
+	 * @param y The y-coordinate of the piece on the board.
+	 */
 	public Pawn(String cellName, String pieceName, boolean isAlive, int x, int y) {
 		super(cellName, pieceName, isAlive, x, y);
 
 	}
+	
+	/**
+	 * This method is to judge if the pawn on (currX,currY) can use enpassant to (tarX,tarY)
+	 * @param currName the name of the piece
+	 * @param currX The current x-coordinate of the piece
+	 * @param currY The current y-coordinate of the piece
+	 * @param tarX The target x-coordinate of the piece
+	 * @param tarY The target y-coordinate of the piece
+	 * @return If the pawn in (currX,currY) can move to (tarX,tarY) by en-passant, then true. Otherwise, false
+	 */
 	public boolean Enpassant(String currName, int currX, int currY, int tarX, int tarY)
 	{
 		if(currName=="wp" && Chess.board[tarX-1][tarY].pieceName.equals("bp") && currX==tarX-1 && (currY==tarY+1 || currY==tarY-1) && currX==4 && Chess.board[tarX][tarY].pieceName.equals("empty") && Chess.enpassant_flag && Chess.enpassant_flagx==tarX-1 && Chess.enpassant_flagy==tarY)
@@ -37,6 +71,11 @@ public class Pawn extends Cell implements PawnPromotion{
 		}
 		return false;
 	}
+	
+	
+	/**
+	 * This method is to judge if the white Pawn in (i,j) can be promoted
+	 */
 	public void CheckTransPawnForW(int i, int x, int y)
 	{
 		if(i==7)
@@ -57,6 +96,10 @@ public class Pawn extends Cell implements PawnPromotion{
 			TransPawnForW(temp,temp2,x,y);
 		}
 	}
+	
+	/**
+	 * This method is to promote the white Pawn at(x,y) to the new piece which piecename refer to str
+	 */
 	public void TransPawnForW(String str,String celln, int x, int y)
 	{
 		if(str.equals("N"))
@@ -81,6 +124,9 @@ public class Pawn extends Cell implements PawnPromotion{
 		}
 	}
 
+	/**
+	 * This method is to judge if the black Pawn in (i,j) can be promoted
+	 */
 	public void CheckTransPawnForB(int i, int x, int y)
 	{
 		if(i==0)
@@ -101,6 +147,12 @@ public class Pawn extends Cell implements PawnPromotion{
 			TransPawnForB(temp,temp2,x,y);
 		}
 	}
+	
+	
+	/**
+	 * This method is to promote the black Pawn at(x,y) to the new piece which piecename refer to str
+	 */
+	
 	public void TransPawnForB(String str,String celln, int x, int y)
 	{
 		if(str.equals("N"))
@@ -125,6 +177,14 @@ public class Pawn extends Cell implements PawnPromotion{
 		}
 	}
 
+	/**
+	 * This method performs the movement of a Pawn piece from current point to targeting point.
+	 * @param currX The x-coordinate of starting point in the movement.
+	 * @param currY The y-coordinate of starting point in the movement.
+	 * @param tarX The x-coordinate of targeting point in the movement.
+	 * @param tarY The y-coordinate of targeting point in the movement.
+	 * @return True if successfully move. Otherwise, return false.
+	 */
 	public boolean move(int currX, int currY, int tarX, int tarY) {
 		if(currX==1 && pieceName.equals("wp"))
 		{
@@ -267,6 +327,10 @@ public class Pawn extends Cell implements PawnPromotion{
 		return false;
 	}
 	
+	/**
+	 * This method is going to search all of the possible location where the Pawn can reach.
+	 * @return The ArrayList<Point> contains all of the possible locations. Null if no possible location.
+	 */
 	public ArrayList<Point> Searcher(){
 		ArrayList<Point> arr=new ArrayList<Point>();
 		if(this.x==1 && Chess.board[this.x][this.y].pieceName.equals("wp"))
