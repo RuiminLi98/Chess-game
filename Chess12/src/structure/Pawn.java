@@ -137,10 +137,9 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX+2 && tarY==currY && Chess.board[currX+2][currY].pieceName.equals("empty"))
 			{
-				if(Chess.enpassant_flag==false) {
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
-					Chess.enpassant_flagy=tarY;}
+					Chess.enpassant_flagy=tarY;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -172,10 +171,9 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==(currX-2) && tarY==currY && Chess.board[currX-2][currY].pieceName.equals("empty"))
 			{
-				if(Chess.enpassant_flag==false) {
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
-					Chess.enpassant_flagy=tarY; }
+					Chess.enpassant_flagy=tarY; 
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
