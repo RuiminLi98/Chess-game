@@ -13,6 +13,7 @@ public class Queen extends Cell{
 	@Override
 	public boolean move(int currX, int currY, int tarX, int tarY) {
 		// TODO Auto-generated method stub
+		Chess.enpassant_flag=false;
 		ArrayList<Integer[]> list = detector(currX, currY);
 		Integer[] arr=new Integer[2];
 		arr[0]=tarX;
