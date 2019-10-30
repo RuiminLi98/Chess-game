@@ -269,7 +269,7 @@ public class Pawn extends Cell implements PawnPromotion{
 	
 	public ArrayList<Point> Searcher(){
 		ArrayList<Point> arr=new ArrayList<Point>();
-		if(this.x==1 && pieceName.equals("wp"))
+		if(this.x==1 && Chess.board[this.x][this.y].pieceName.equals("wp"))
 		{
 			if(Chess.board[(this.x)+1][this.y].pieceName.equals("empty"))
 			{
@@ -289,15 +289,15 @@ public class Pawn extends Cell implements PawnPromotion{
 			}
 
 		}
-		else if(this.x==6 && pieceName.equals("bp"))
+		else if(this.x==6 && Chess.board[this.x][this.y].pieceName.equals("bp"))
 		{
 			if(Chess.board[(this.x)-1][this.y].pieceName.equals("empty"))
 			{
 				arr.add(new Point((this.x)-1,this.y));
 			}
-			if(Chess.board[(this.x)-1][this.y].pieceName.equals("empty"))
+			if(Chess.board[(this.x)-2][this.y].pieceName.equals("empty"))
 			{
-				arr.add(new Point((this.x)-1,this.y));
+				arr.add(new Point((this.x)-2,this.y));
 			}
 			if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)-1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)-1].pieceName.contentEquals("empty")) && (this.y)-1>=0)
 			{
@@ -308,7 +308,7 @@ public class Pawn extends Cell implements PawnPromotion{
 				arr.add(new Point((this.x)-1,(this.y)+1));
 			}
 		}
-		if((this.x==2 || this.x==3 ||this.x==4 || this.x==5 || this.x==6) && pieceName.contentEquals("wp"))
+		if((this.x==2 || this.x==3 ||this.x==4 || this.x==5 || this.x==6) && Chess.board[this.x][this.y].pieceName.contentEquals("wp"))
 		{
 			if(this.y-1>=0 && this.x+1<=7)
 			{
@@ -327,7 +327,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			if(Chess.board[(this.x)+1][this.y].pieceName.equals("empty"))
 				arr.add(new Point((this.x)+1,this.y));
 		}
-		if((this.x==1 || this.x==2 || this.x==3 ||this.x==4 || this.x==5) && pieceName.contentEquals("bp"))
+		if((this.x==1 || this.x==2 || this.x==3 ||this.x==4 || this.x==5) && Chess.board[this.x][this.y].pieceName.contentEquals("bp"))
 		{
 			if((this.x)-1>=0 && (this.y)-1>=0)
 			{
