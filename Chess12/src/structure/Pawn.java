@@ -6,8 +6,8 @@ import chess.Chess;
 
 
 /** 
- * @author Junjie He jh1285
- * @author Ruimin Li rl751
+ * @author Junjie He 
+ * @author Ruimin Li 
  */
 
 /**
@@ -74,7 +74,10 @@ public class Pawn extends Cell implements PawnPromotion{
 	
 	
 	/**
-	 * This method is to judge if the white Pawn in (i,j) can be promoted
+	 * This method is to judge if the While Pawn in (i,j) can be promoted
+	 * @param i The line number of the current piece 
+	 * @param x The x-coordinate of the current piece 
+	 * @param y The y-coordinate of the current piece
 	 */
 	public void CheckTransPawnForW(int i, int x, int y)
 	{
@@ -99,6 +102,10 @@ public class Pawn extends Cell implements PawnPromotion{
 	
 	/**
 	 * This method is to promote the white Pawn at(x,y) to the new piece which piecename refer to str
+	 * @param str The represent character for the piece's name 
+	 * @param celln The content should be shown on the chessboard 
+	 * @param x the x-coordinate of the piece 
+	 * @param y the y-coordinate of the piece 
 	 */
 	public void TransPawnForW(String str,String celln, int x, int y)
 	{
@@ -126,6 +133,9 @@ public class Pawn extends Cell implements PawnPromotion{
 
 	/**
 	 * This method is to judge if the black Pawn in (i,j) can be promoted
+	 * @param i The line number of the current piece 
+	 * @param x The x-coordinate of the current piece 
+	 * @param y The y-coordinate of the current piece
 	 */
 	public void CheckTransPawnForB(int i, int x, int y)
 	{
@@ -151,6 +161,10 @@ public class Pawn extends Cell implements PawnPromotion{
 	
 	/**
 	 * This method is to promote the black Pawn at(x,y) to the new piece which piecename refer to str
+	 * @param str The represent character for the piece's name 
+	 * @param celln The content should be shown on the chessboard 
+	 * @param x the x-coordinate of the piece 
+	 * @param y the y-coordinate of the piece 
 	 */
 	
 	public void TransPawnForB(String str,String celln, int x, int y)
@@ -196,7 +210,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			}
 			else if(tarX==currX+1 && tarY==currY && !(Chess.board[currX+1][currY].pieceName.equals("empty")))
 				return false;
-			else if(tarX==currX+2 && tarY==currY && Chess.board[currX+2][currY].pieceName.equals("empty"))
+			else if(tarX==currX+2 && tarY==currY && Chess.board[currX+2][currY].pieceName.equals("empty") && Chess.board[currX+1][currY].pieceName.equals("empty"))
 			{
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
@@ -204,7 +218,7 @@ public class Pawn extends Cell implements PawnPromotion{
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
-			else if(tarX==currX+2 && tarY==currY && !(Chess.board[currX+2][currY].pieceName.equals("empty")))
+			else if(tarX==currX+2 && tarY==currY && (!(Chess.board[currX+2][currY].pieceName.equals("empty")) || !(Chess.board[currX+1][currY].pieceName.equals("empty"))))
 				return false;
 			else if(tarX==currX+1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX+1][currY-1].pieceName)) && !(Chess.board[currX+1][currY-1].pieceName.contentEquals("empty")) && tarY>=0)
 			{
@@ -230,7 +244,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			}
 			else if(tarX==(currX-1) && tarY==currY && !(Chess.board[currX-1][currY].pieceName.equals("empty")))
 				return false;
-			else if(tarX==(currX-2) && tarY==currY && Chess.board[currX-2][currY].pieceName.equals("empty"))
+			else if(tarX==(currX-2) && tarY==currY && Chess.board[currX-2][currY].pieceName.equals("empty") && Chess.board[currX-1][currY].pieceName.equals("empty")) 
 			{
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
@@ -238,7 +252,7 @@ public class Pawn extends Cell implements PawnPromotion{
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
-			else if(tarX==currX-2 && tarY==currY && !(Chess.board[currX-2][currY].pieceName.equals("empty")))
+			else if(tarX==currX-2 && tarY==currY && (!(Chess.board[currX-2][currY].pieceName.equals("empty")) || (!Chess.board[currX-1][currY].pieceName.equals("empty"))))
 				return false;
 			else if(tarX==currX-1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX-1][currY-1].pieceName)) && !(Chess.board[currX-1][currY-1].pieceName.contentEquals("empty")) && tarY>=0)
 			{
@@ -339,17 +353,23 @@ public class Pawn extends Cell implements PawnPromotion{
 			{
 				arr.add(new Point((this.x)+1,this.y));
 			}
-			if(Chess.board[(this.x)+2][this.y].pieceName.equals("empty"))
+			if(Chess.board[(this.x)+2][this.y].pieceName.equals("empty") && Chess.board[(this.x)+1][this.y].pieceName.equals("empty"))
 			{
 				arr.add(new Point((this.x)+2,this.y));
 			}
+			if((this.y)-1>=0)
+			{
 			if(!(Ownside(pieceName, Chess.board[this.x+1][this.y-1].pieceName)) && !(Chess.board[this.x+1][this.y-1].pieceName.contentEquals("empty")) && (this.y)-1>=0)
 			{
 				arr.add(new Point((this.x)+1,(this.y)-1));
 			}
+			}
+			if((this.y)+1<=7)
+			{
 		    if(!(Ownside(pieceName, Chess.board[(this.x)+1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)+1][(this.y)+1].pieceName.contentEquals("empty"))&& (this.y+1)<=7)
 			{
 				arr.add(new Point((this.x)+1,(this.y)+1));
+			}
 			}
 
 		}
@@ -359,17 +379,23 @@ public class Pawn extends Cell implements PawnPromotion{
 			{
 				arr.add(new Point((this.x)-1,this.y));
 			}
-			if(Chess.board[(this.x)-2][this.y].pieceName.equals("empty"))
+			if(Chess.board[(this.x)-2][this.y].pieceName.equals("empty") && Chess.board[(this.x)-1][this.y].pieceName.equals("empty"))
 			{
 				arr.add(new Point((this.x)-2,this.y));
 			}
+			if((this.y)-1>=0)
+			{
 			if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)-1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)-1].pieceName.contentEquals("empty")) && (this.y)-1>=0)
 			{
 				arr.add(new Point((this.x)-1,(this.y)-1));
 			}
+			}
+			if((this.y)+1<=7)
+			{
 			if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)+1].pieceName.contentEquals("empty")) && (this.y)+1<=7)
 			{
 				arr.add(new Point((this.x)-1,(this.y)+1));
+			}
 			}
 		}
 		if((this.x==2 || this.x==3 ||this.x==4 || this.x==5 || this.x==6) && Chess.board[this.x][this.y].pieceName.contentEquals("wp"))
