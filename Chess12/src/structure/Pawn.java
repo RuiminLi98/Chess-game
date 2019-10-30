@@ -25,11 +25,11 @@ public class Pawn extends Cell implements PawnPromotion{
 	}
 	public boolean Enpassant(String currName, int currX, int currY, int tarX, int tarY)
 	{
-		if(currName=="wp" && Chess.board[tarX-1][tarY].pieceName.equals("bp") && currX==tarX-1 && (currY==tarY+1 || currY==tarY-1) && currX==4 && Chess.board[tarX][tarY].pieceName.equals("empty"))
+		if(currName=="wp" && Chess.board[tarX-1][tarY].pieceName.equals("bp") && currX==tarX-1 && (currY==tarY+1 || currY==tarY-1) && currX==4 && Chess.board[tarX][tarY].pieceName.equals("empty") && Chess.enpassant_flag && Chess.enpassant_flagx==tarX-1 && Chess.enpassant_flagy==tarY)
 		{
 			return true;
 		}
-		if(currName=="bp" && Chess.board[tarX+1][tarY].pieceName.equals("wp") && currX==tarX+1 && (currY==tarY+1 || currY==tarY-1) && currX==3 && Chess.board[tarX][tarY].pieceName.equals("empty"))
+		if(currName=="bp" && Chess.board[tarX+1][tarY].pieceName.equals("wp") && currX==tarX+1 && (currY==tarY+1 || currY==tarY-1) && currX==3 && Chess.board[tarX][tarY].pieceName.equals("empty") && Chess.enpassant_flag && Chess.enpassant_flagx==tarX+1 && Chess.enpassant_flagy==tarY)
 		{
 
 			return true;
@@ -136,6 +136,12 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX+2 && tarY==currY && Chess.board[currX+2][currY].pieceName.equals("empty"))
 			{
+				if(Chess.enpassant_flag==false) {
+					Chess.enpassant_flag=true;
+					Chess.enpassant_flagx=tarX;
+					Chess.enpassant_flagy=tarY;}
+				else
+					Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -164,6 +170,12 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==(currX-2) && tarY==currY && Chess.board[currX-2][currY].pieceName.equals("empty"))
 			{
+				if(Chess.enpassant_flag==false) {
+					Chess.enpassant_flag=true;
+					Chess.enpassant_flagx=tarX;
+					Chess.enpassant_flagy=tarY; }
+				else
+					Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
