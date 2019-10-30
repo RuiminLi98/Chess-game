@@ -44,6 +44,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			//Scanner sc=new Scanner(System.in);
 			//String str=sc.next();
 			String temp="";
+			String temp2=Chess.board[x][y].cellName;
 			if(Chess.a.length==2)
 				temp="";
 			else if(Chess.a.length==3 && (Chess.a[2]=="draw?"))
@@ -52,8 +53,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			{
 				temp=Chess.a[2];
 			}
-			String celln1=temp;
-			TransPawnForW(temp,celln1,x,y);
+			TransPawnForW(temp,temp2,x,y);
 		}
 	}
 	public void TransPawnForW(String str,String celln, int x, int y)
@@ -88,6 +88,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			//Scanner sc=new Scanner(System.in);
 			//String str=sc.next();
 			String temp="";
+			String temp2=Chess.board[x][y].cellName;
 			if(Chess.a.length==2)
 				temp="";
 			else if(Chess.a.length==3 && (Chess.a[2]=="draw?"))
@@ -96,8 +97,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			{
 				temp=Chess.a[2];
 			}
-			String celln1=temp;
-			TransPawnForB(temp,celln1,x,y);
+			TransPawnForB(temp,temp2,x,y);
 		}
 	}
 	public void TransPawnForB(String str,String celln, int x, int y)

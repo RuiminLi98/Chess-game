@@ -13,7 +13,17 @@ public class Chess {
 	public static boolean CastlingBL;
 	public static boolean CastlingBS;
 	public static boolean CastlingWS;
+	
+	public static boolean CastlingWLPrev;
+	public static boolean CastlingBLPrev;
+	public static boolean CastlingBSPrev;
+	public static boolean CastlingWSPrev;
 
+	public static boolean jumpBack;
+	
+	public static Point WKLoc;
+	public static Point BKLoc;
+	
 //	public static boolean WCheck;
 //	public static boolean BCheck;
 	public static boolean draw_flag;
@@ -24,8 +34,15 @@ public class Chess {
 		CastlingWL=true;
 		CastlingBS=true;
 		CastlingWS=true;
+		CastlingWLPrev=true;
+		CastlingBLPrev=true;
+		CastlingBSPrev=true;
+		CastlingWSPrev=true;
+		jumpBack=false;
 //		WCheck=false;
 //		BCheck=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		board[0][0]=new Rook("##", "wR", true, 0, 0);
 		board[0][1]=new Knight("  ", "wN", true, 0, 1);
@@ -60,8 +77,8 @@ public class Chess {
 
 		for(int i=0;i<8;i+=2) {
 			//
-			//			board[1][i]=new Empty("  ", "empty", false, 1, i);
-			//			board[6][i]=new Empty("##", "empty", false, 6, i);
+//						board[1][i]=new Empty("  ", "empty", false, 1, i);
+//						board[6][i]=new Empty("##", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("##", "empty", false, 2, i);
 			board[3][i]=new Empty("  ", "empty", false, 3, i);
@@ -70,8 +87,8 @@ public class Chess {
 		}
 		for(int i=1;i<8;i+=2) {
 			//
-			//			board[1][i]=new Empty("##", "empty", false, 1, i);
-			//			board[6][i]=new Empty("  ", "empty", false, 6, i);
+//						board[1][i]=new Empty("##", "empty", false, 1, i);
+//						board[6][i]=new Empty("  ", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("  ", "empty", false, 2, i);
 			board[3][i]=new Empty("##", "empty", false, 3, i);
@@ -116,36 +133,41 @@ public class Chess {
 
 		Point WKLoc=Point.getLocation("wK");
 		Point BKLoc=Point.getLocation("bK");
-		if(Point.check(WKLoc)&&Point.check(BKLoc))return 3;
-		if(Point.check(WKLoc))return 1;
-		if(Point.check(BKLoc))return 2;
+		if(Point.check(WKLoc,WKLoc)&&Point.check(BKLoc,BKLoc))return 3;
+		if(Point.check(WKLoc,WKLoc))return 1;
+		if(Point.check(BKLoc,BKLoc))return 2;
 		return 0;
 	}
 
 	public static boolean Illegalmove(char turn,int curX,int curY,int tarX,int tarY) {
 		switch(isCheckmate()) {
 		case 0:{
+			Chess.jumpBack=false;
 			return false;
 		}
 		case 1:{
 			if(turn=='w') {
-				Chess.board[curX][curY].move(tarX, tarY,curX, curY);
+				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
+				Chess.jumpBack=false;
 				return true;
 			}
 			break;
 		}
 		case 2:{
 			if(turn=='b') {
-				Chess.board[curX][curY].move(tarX, tarY,curX, curY);
+				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
+				Chess.jumpBack=false;
 				return true;
 			}
 			break;
 		}
 		case 3:{
+			
 			break;
 		}
 
 		}
+		Chess.jumpBack=false;
 		return false;
 	}
 	
@@ -190,65 +212,65 @@ public class Chess {
 			//white
 			kLoc=Point.getLocation("wK");
 		}
-		if(Point.check(kLoc)) {
+		if(Point.check(kLoc,kLoc)) {
 			if(Point.inScale(kLoc.x-1, kLoc.y-1)) {
 				Cell c=Chess.board[kLoc.x-1][kLoc.y-1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			
 			if(Point.inScale(kLoc.x-1, kLoc.y)) {
 				Cell c=Chess.board[kLoc.x-1][kLoc.y];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			
 			if(Point.inScale(kLoc.x-1, kLoc.y+1)) {
 				Cell c=Chess.board[kLoc.x-1][kLoc.y+1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			if(Point.inScale(kLoc.x, kLoc.y-1)) {
 				Cell c=Chess.board[kLoc.x][kLoc.y-1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			if(Point.inScale(kLoc.x, kLoc.y+1)) {
 				Cell c=Chess.board[kLoc.x][kLoc.y+1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			if(Point.inScale(kLoc.x+1, kLoc.y-1)) {
 				Cell c=Chess.board[kLoc.x+1][kLoc.y-1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			if(Point.inScale(kLoc.x+1, kLoc.y)) {
 				Cell c=Chess.board[kLoc.x+1][kLoc.y];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			if(Point.inScale(kLoc.x+1, kLoc.y+1)) {
 				Cell c=Chess.board[kLoc.x+1][kLoc.y+1];
-				if(!c.isAlive&&!Point.check(new Point(c.x,c.y))) {
+				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
 			
 			Cell threat=Point.findCheck(kLoc);
-			if(Point.check(new Point(threat.x,threat.y)))return false;
-			if(threat.pieceName.charAt(1)=='N')return true;
+			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y)))return false;
+			if(threat.pieceName.charAt(1)=='N'||threat.pieceName.charAt(1)=='p')return true;
 			
 			ArrayList<Point> path= findPath(kLoc,new Point(threat.x,threat.y));
 			for(Point p:path) {
-				if(Point.checkFromSelf(p)) {
+				if(Point.checkFromSelf(p,kLoc)) {
 					return false;
 				}
 			}
@@ -402,24 +424,24 @@ public class Chess {
 			if(turn=='w') {
 				//black
 				 kLoc=Point.getLocation("bK");
-				 if(Point.check(kLoc)) {
+				 if(Point.check(kLoc,kLoc)) {
 					 if(checkToDeath(turn)) {
 						 System.out.println("Checkmate\n White wins");
 						 return;
+					 }else {
+						 System.out.println("Check");
 					 }
-				 }else {
-					 System.out.println("Check");
 				 }
 			}else {
 				//white
 				kLoc=Point.getLocation("wK");
-				if(Point.check(kLoc)) {
+				if(Point.check(kLoc,kLoc)) {
 					 if(checkToDeath(turn)) {
 						 System.out.println("Checkmate\n Black wins");
 						 return;
+					 }else {
+						 System.out.println("Check");
 					 }
-				 }else {
-					 System.out.println("Check");
 				 }
 			}
 			

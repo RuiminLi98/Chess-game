@@ -98,7 +98,7 @@ public class Point {
 				break;
 			}
 		}
-		for(Cell c:EnemyListR) {
+		for(Cell c:EnemyListB) {
 			if(c.pieceName.charAt(1)=='B'||c.pieceName.charAt(1)=='Q')return Chess.board[c.x][c.y];
 		}
 		
@@ -252,13 +252,13 @@ public class Point {
 		return null;
 	}
 	
-	public static boolean checkFromSelf(Point kLoc) {
+	public static boolean checkFromSelf(Point kLoc, Point kLoc2) {
 		ArrayList<Cell>EnemyListR=new ArrayList<Cell>();
 		//ckeck up row
 		for(int i=kLoc.x+1;i<8;i++) {
 			Cell c=Chess.board[i][kLoc.y];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -266,7 +266,7 @@ public class Point {
 		for(int i=kLoc.x-1;i>=0;i--) {
 			Cell c=Chess.board[i][kLoc.y];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -274,7 +274,7 @@ public class Point {
 		for(int i=kLoc.y+1;i<8;i++) {
 			Cell c=Chess.board[kLoc.x][i];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -282,7 +282,7 @@ public class Point {
 		for(int i=kLoc.y-1;i>=0;i--) {
 			Cell c=Chess.board[kLoc.x][i];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -295,7 +295,7 @@ public class Point {
 		for(int i=kLoc.x+1,j=kLoc.y+1;i<8&&j<8;i++,j++) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -304,7 +304,7 @@ public class Point {
 		for(int i=kLoc.x-1,j=kLoc.y-1;i>=0&&j>=0;i--,j--) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -313,7 +313,7 @@ public class Point {
 		for(int i=kLoc.x+1,j=kLoc.y-1;i<8&&j>=0;i++,j--) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -321,23 +321,23 @@ public class Point {
 		for(int i=kLoc.x-1,j=kLoc.y+1;i>=0&&j<8;i--,j++) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(!isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
-		for(Cell c:EnemyListR) {
+		for(Cell c:EnemyListB) {
 			if(c.pieceName.charAt(1)=='B'||c.pieceName.charAt(1)=='Q')return true;
 		}
 		
 		
-		if(threatFromPorNSelf(kLoc)) {
+		if(threatFromPorNSelf(kLoc,kLoc2)) {
 			return true;
 		}
 		return false;
 	}
 
-	private static boolean threatFromPorNSelf(Point kLoc) {
-		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+	private static boolean threatFromPorNSelf(Point kLoc, Point kLoc2) {
+		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='w')
 		{
 			if((kLoc.x)+1 <=7 && (kLoc.y)-2>=0)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("wN")) 
@@ -364,7 +364,7 @@ public class Point {
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("wN"))
 					return true;
 		}
-		if((kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+		if((kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='w')
 		{
 			if(kLoc.x-1>=0 && kLoc.y-1>=0)
 			{
@@ -404,7 +404,7 @@ public class Point {
 
 
 		
-		if((kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		if((kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='b')
 		{
 			if((kLoc.x)+1 <=7 && (kLoc.y)-2>=0)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("bN")) 
@@ -431,7 +431,7 @@ public class Point {
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("bN"))
 					return true;
 		}
-		if((kLoc.x==0 || kLoc.x==1 || kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		if((kLoc.x==0 || kLoc.x==1 || kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='b')
 		{
 			if(kLoc.x+1<=7 && kLoc.y-1>=0)
 			{
@@ -471,13 +471,13 @@ public class Point {
 		return false;
 	}
 
-	public static boolean check(Point kLoc) {
+	public static boolean check(Point kLoc,Point kLoc2) {
 		ArrayList<Cell>EnemyListR=new ArrayList<Cell>();
 		//ckeck up row
 		for(int i=kLoc.x+1;i<8;i++) {
 			Cell c=Chess.board[i][kLoc.y];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -485,7 +485,7 @@ public class Point {
 		for(int i=kLoc.x-1;i>=0;i--) {
 			Cell c=Chess.board[i][kLoc.y];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -493,7 +493,7 @@ public class Point {
 		for(int i=kLoc.y+1;i<8;i++) {
 			Cell c=Chess.board[kLoc.x][i];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -501,7 +501,7 @@ public class Point {
 		for(int i=kLoc.y-1;i>=0;i--) {
 			Cell c=Chess.board[kLoc.x][i];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListR.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListR.add(c);
 				break;
 			}
 		}
@@ -514,7 +514,7 @@ public class Point {
 		for(int i=kLoc.x+1,j=kLoc.y+1;i<8&&j<8;i++,j++) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -523,7 +523,7 @@ public class Point {
 		for(int i=kLoc.x-1,j=kLoc.y-1;i>=0&&j>=0;i--,j--) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -532,7 +532,7 @@ public class Point {
 		for(int i=kLoc.x+1,j=kLoc.y-1;i<8&&j>=0;i++,j--) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
@@ -540,61 +540,61 @@ public class Point {
 		for(int i=kLoc.x-1,j=kLoc.y+1;i>=0&&j<8;i--,j++) {
 			Cell c=Chess.board[i][j];
 			if(c.isAlive) {
-				if(isEnemy(c, Chess.board[kLoc.x][kLoc.y]))EnemyListB.add(c);
+				if(isEnemy(c, Chess.board[kLoc2.x][kLoc2.y]))EnemyListB.add(c);
 				break;
 			}
 		}
-		for(Cell c:EnemyListR) {
+		for(Cell c:EnemyListB) {
 			if(c.pieceName.charAt(1)=='B'||c.pieceName.charAt(1)=='Q')return true;
 		}
 		
 		if(inScale(kLoc.x-1, kLoc.y-1)) {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y-1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		
 		if(inScale(kLoc.x-1, kLoc.y)) {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		
 		if(inScale(kLoc.x-1, kLoc.y+1)) {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y+1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		if(inScale(kLoc.x, kLoc.y-1)) {
 			Cell c=Chess.board[kLoc.x][kLoc.y-1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		if(inScale(kLoc.x, kLoc.y+1)) {
 			Cell c=Chess.board[kLoc.x][kLoc.y+1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		if(inScale(kLoc.x+1, kLoc.y-1)) {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y-1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		if(inScale(kLoc.x+1, kLoc.y)) {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
 		if(inScale(kLoc.x+1, kLoc.y+1)) {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y+1];
-			if(c.isAlive&&c.pieceName.charAt(1)=='K') {
+			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
