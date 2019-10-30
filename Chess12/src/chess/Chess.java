@@ -13,27 +13,70 @@ public class Chess {
 	public static boolean CastlingBL;
 	public static boolean CastlingBS;
 	public static boolean CastlingWS;
-	
+
 	public static boolean enpassant_flag=false;
 	public static int enpassant_flagx=0;
 	public static int enpassant_flagy=0;
-	
+
 	public static boolean CastlingWLPrev;
 	public static boolean CastlingBLPrev;
 	public static boolean CastlingBSPrev;
 	public static boolean CastlingWSPrev;
 
 	public static boolean jumpBack;
-	
+
 	public static Point WKLoc;
 	public static Point BKLoc;
 	
-//	public static boolean WCheck;
-//	public static boolean BCheck;
+	public static Cell previousCell;
+
+	//	public static boolean WCheck;
+	//	public static boolean BCheck;
 	public static boolean draw_flag;
 	public static String []a;
 
-	public static void Initialize(){
+
+	public static void InitializeStalemate(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+		board[7][0]=new King("  ", "bK", true, 7, 0);
+		board[6][3]=new Queen("  ","wQ",true,6,3);
+		board[5][2]=new King("  ", "wK", true, 5, 2);
+		board[3][7]=new Pawn("##", "bP", true, 3, 7);
+		//		board[2][7]=new Pawn("  ", "wP", true, 2, 7);
+	}
+	
+	public static void InitializeCastling(){
 		CastlingBL=true;
 		CastlingWL=true;
 		CastlingBS=true;
@@ -43,8 +86,50 @@ public class Chess {
 		CastlingBSPrev=true;
 		CastlingWSPrev=true;
 		jumpBack=false;
-//		WCheck=false;
-//		BCheck=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+		board[0][4]=new King("##", "wK", true, 0, 4);
+		board[7][4]=new King("  ", "bK", true,7, 4);
+		board[0][0]=new Rook("##", "wR", true, 0, 0);
+		board[7][0]=new Rook("  ", "bR", true, 7, 0);
+		board[6][6]=new Rook("##", "bR", true,6, 6);
+		board[0][7]=new Rook("  ", "wR", true, 0, 7);
+		board[6][5]=new Pawn("  ", "wp", true, 6, 5);
+		
+	}
+	public static void Initialize(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		//		WCheck=false;
+		//		BCheck=false;
 		Chess.WKLoc=new Point(0,4);
 		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
@@ -65,14 +150,14 @@ public class Chess {
 		board[7][1]=new Knight("##", "bN", true,7, 1);
 		board[7][2]=new Bishop("  ", "bB", true,7, 2);
 		board[7][3]=new Queen("##", "bQ", true,7, 3);
-//		board[7][1]=new Empty("##", "Empty", false,7, 1);
-//		board[7][2]=new Empty("  ", "Empty", false,7, 2);
-//		board[7][3]=new Empty("##", "Empty", false,7, 3);
+		//		board[7][1]=new Empty("##", "Empty", false,7, 1);
+		//		board[7][2]=new Empty("  ", "Empty", false,7, 2);
+		//		board[7][3]=new Empty("##", "Empty", false,7, 3);
 		board[7][4]=new King("  ", "bK", true,7, 4);
 		board[7][5]=new Bishop("##", "bB", true,7, 5);
 		board[7][6]=new Knight("  ", "bN", true,7, 6);
-//		board[7][5]=new Empty("##", "Empty", false,7, 5);
-//		board[7][6]=new Empty("  ", "Empty", false,7, 6);
+		//		board[7][5]=new Empty("##", "Empty", false,7, 5);
+		//		board[7][6]=new Empty("  ", "Empty", false,7, 6);
 		board[7][7]=new Rook("##", "bR", true,7, 7);
 
 		for(int i=0;i<8;i+=2) {
@@ -86,8 +171,8 @@ public class Chess {
 
 		for(int i=0;i<8;i+=2) {
 			//
-//						board[1][i]=new Empty("  ", "empty", false, 1, i);
-//						board[6][i]=new Empty("##", "empty", false, 6, i);
+			//						board[1][i]=new Empty("  ", "empty", false, 1, i);
+			//						board[6][i]=new Empty("##", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("##", "empty", false, 2, i);
 			board[3][i]=new Empty("  ", "empty", false, 3, i);
@@ -96,15 +181,15 @@ public class Chess {
 		}
 		for(int i=1;i<8;i+=2) {
 			//
-//						board[1][i]=new Empty("##", "empty", false, 1, i);
-//						board[6][i]=new Empty("  ", "empty", false, 6, i);
+			//						board[1][i]=new Empty("##", "empty", false, 1, i);
+			//						board[6][i]=new Empty("  ", "empty", false, 6, i);
 			//
 			board[2][i]=new Empty("  ", "empty", false, 2, i);
 			board[3][i]=new Empty("##", "empty", false, 3, i);
 			board[4][i]=new Empty("  ", "empty", false, 4, i);
 			board[5][i]=new Empty("##", "empty", false, 5, i);
 		}
-//		board[6][4]=new Rook("##", "wR", true,6, 4);
+		//		board[6][4]=new Rook("##", "wR", true,6, 4);
 	}
 
 	public static void printBoard() {
@@ -148,6 +233,95 @@ public class Chess {
 		if(Point.check(BKLoc,BKLoc))return 2;
 		return 0;
 	}
+	public static Cell getCell(Point p) {
+		return Chess.board[p.x][p.y];
+	}
+	
+	public static Cell copyCell(Cell c) {
+		if(c.pieceName.charAt(1)=='K') {
+			return new King(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		if(c.pieceName.charAt(1)=='Q') {
+			return new Queen(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		if(c.pieceName.charAt(1)=='p') {
+			return new Pawn(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		if(c.pieceName.charAt(1)=='B') {
+			return new Bishop(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		if(c.pieceName.charAt(1)=='R') {
+			return new Rook(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		if(c.pieceName.charAt(1)=='N') {
+			return new Knight(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
+		}
+		return null;
+	}
+	public static boolean isStalemate(Point kLoc) {
+		ArrayList<Point> myPieces = new ArrayList<Point>();
+		for(int i=0;i<8;i++) {
+			for(int j=0;j<8;j++) {
+				if(Chess.board[i][j].isAlive&&!Point.isEnemy(Chess.board[i][j], Chess.board[kLoc.x][kLoc.y])) {
+					myPieces.add(new Point(i,j));
+				}
+			}
+		}
+		
+		for(Point p:myPieces) {
+			ArrayList<Point>possLoc=Chess.board[p.x][p.y].Searcher();
+			if(possLoc==null)continue;
+			int count=possLoc.size();
+			for(Point poss:possLoc) {
+				if(p.equals(kLoc)) {
+					//King move
+					if(Point.check(poss, kLoc)) {
+						count--;
+					}
+				}else if(getCell(p).pieceName.charAt(1)=='R') {
+					if(getCell(poss).isAlive) {
+						Cell temp=copyCell(getCell(poss));
+						Cell.jump(p.x, p.y, poss.x, poss.y);
+						if(Point.check(kLoc, kLoc)) {
+							count--;
+						}
+						Cell.jump( poss.x, poss.y,p.x, p.y);
+						Chess.board[poss.x][poss.y]=temp;
+					}else {
+						Cell.jump(p.x, p.y, poss.x, poss.y);
+						if(Point.check(kLoc, kLoc)) {
+							count--;
+						}
+						Cell.jump( poss.x, poss.y,p.x, p.y);
+					}
+				}
+				
+				else {
+					//Other piece move
+					if(getCell(poss).isAlive) {
+						Cell temp=copyCell(getCell(poss));
+						Chess.board[p.x][p.y].move(p.x, p.y, poss.x, poss.y);
+						if(Point.check(kLoc, kLoc)) {
+							count--;
+						}
+						Chess.board[poss.x][poss.y].move(poss.x, poss.y,p.x, p.y);
+						Chess.board[poss.x][poss.y]=temp;
+					}else {
+						Chess.board[p.x][p.y].move(p.x, p.y, poss.x, poss.y);
+						if(Point.check(kLoc, kLoc)) {
+							count--;
+						}
+						Chess.board[poss.x][poss.y].move(poss.x, poss.y,p.x, p.y);
+					}
+					
+				}
+			}
+			if(count>0) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public static boolean Illegalmove(char turn,int curX,int curY,int tarX,int tarY) {
 		switch(isCheckmate()) {
@@ -157,34 +331,38 @@ public class Chess {
 		}
 		case 1:{
 			if(turn=='w') {
+				Chess.CastlingWS=Chess.CastlingWSPrev;
+				Chess.CastlingWL=Chess.CastlingWLPrev;
 				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
-//				Chess.CastlingWS=Chess.CastlingWSPrev;
-//				Chess.CastlingWL=Chess.CastlingWLPrev;
-//				Chess.jumpBack=false;
+				Chess.CastlingWS=Chess.CastlingWSPrev;
+				Chess.CastlingWL=Chess.CastlingWLPrev;
+				Chess.board[tarX][tarY]=previousCell;
 				return true;
 			}
 			break;
 		}
 		case 2:{
 			if(turn=='b') {
+				Chess.CastlingBS=Chess.CastlingBSPrev;
+				Chess.CastlingBL=Chess.CastlingBLPrev;
 				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
-//				Chess.CastlingBS=Chess.CastlingWSPrev;
-//				Chess.CastlingBL=Chess.CastlingWLPrev;
-//				Chess.jumpBack=false;
+				Chess.CastlingBS=Chess.CastlingBSPrev;
+				Chess.CastlingBL=Chess.CastlingBLPrev;
+				Chess.board[tarX][tarY]=previousCell;
 				return true;
 			}
 			break;
 		}
 		case 3:{
-			
+
 			break;
 		}
 
 		}
-//		Chess.jumpBack=false;
+		//		Chess.jumpBack=false;
 		return false;
 	}
-	
+
 	public static ArrayList<Point> findPath(Point p1,Point p2){
 		ArrayList<Point> path=new ArrayList<Point>();
 		if(p1.x==p2.x) {
@@ -216,18 +394,12 @@ public class Chess {
 		}
 		return path;
 	}
-	
-	
-	/**
-	 * <p> aaaaaasfsdvgfdxvds</p>
-	 * 
-	 * 
-	 */
+
 	public static boolean checkToDeath(char turn) {
 		Point kLoc;
 		if(turn=='w') {
 			//black
-			 kLoc=Point.getLocation("bK");
+			kLoc=Point.getLocation("bK");
 		}else {
 			//white
 			kLoc=Point.getLocation("wK");
@@ -239,14 +411,14 @@ public class Chess {
 					return false;
 				}
 			}
-			
+
 			if(Point.inScale(kLoc.x-1, kLoc.y)) {
 				Cell c=Chess.board[kLoc.x-1][kLoc.y];
 				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
 					return false;
 				}
 			}
-			
+
 			if(Point.inScale(kLoc.x-1, kLoc.y+1)) {
 				Cell c=Chess.board[kLoc.x-1][kLoc.y+1];
 				if(!c.isAlive&&!Point.check(new Point(c.x,c.y),kLoc)) {
@@ -283,42 +455,44 @@ public class Chess {
 					return false;
 				}
 			}
-			
+
 			Cell threat=Point.findCheck(kLoc);
 			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y))) {
-				
+
 				Cell threat2=Point.findCheck(new Point(threat.x,threat.y));
 				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
 					if(Point.check(new Point(threat.x,threat.y), kLoc)) {
 						return true;
 					}
 				}
-				
+
 				return false;
 			}
 			if(threat.pieceName.charAt(1)=='N'||threat.pieceName.charAt(1)=='p')return true;
-			
+
 			ArrayList<Point> path= findPath(kLoc,new Point(threat.x,threat.y));
 			for(Point p:path) {
 				if(Point.checkFromSelf(p,kLoc)) {
 					return false;
 				}
 			}
-			
+
 			return true;
-			}
-		
-		
-		
+		}
+
+
+
 		return false;
-		
-		
-		
+
+
+
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Initialize();
+		//		Initialize();
+//		InitializeStalemate();
+		InitializeCastling();
 		printBoard();
 		Scanner sc=new Scanner(System.in);
 		int count=0;
@@ -339,7 +513,7 @@ public class Chess {
 			if(start.equals("draw") && draw_flag==true)
 			{
 
-//				System.out.println("We draw successfully");
+				//				System.out.println("We draw successfully");
 				return;
 			}
 			else
@@ -382,6 +556,7 @@ public class Chess {
 			int curY=parseLocation(start.charAt(0));
 			int tarX=parseLocation(end.charAt(1));
 			int tarY=parseLocation(end.charAt(0));
+			Chess.previousCell=copyCell(Chess.board[tarX][tarY]);
 			while((Chess.board[curX][curY].pieceName.charAt(0)!=turn)||!Chess.board[curX][curY].move(curX, curY, tarX, tarY)
 					||Illegalmove(turn, curX, curY, tarX, tarY)) {
 				System.out.print("Illegal move, try again: ");
@@ -393,7 +568,7 @@ public class Chess {
 				if(start.equals("draw") && draw_flag==true)
 				{
 
-//					System.out.println("We draw successfully");
+					//					System.out.println("We draw successfully");
 					return;
 				}
 				else
@@ -421,7 +596,7 @@ public class Chess {
 				if(start.equals("draw") && draw_flag==true)
 				{
 
-//					System.out.println("We draw successfully");
+					//					System.out.println("We draw successfully");
 					return;
 				}
 				else
@@ -430,7 +605,7 @@ public class Chess {
 				}
 				if(start.equals("resign"))
 				{
-					System.out.println("White wins");
+					System.out.println("Black wins");
 					return;
 				}
 				else
@@ -446,38 +621,48 @@ public class Chess {
 				tarX=parseLocation(end.charAt(1));
 				tarY=parseLocation(end.charAt(0));
 			}
-			
-			
-			
+
+
+
 			printBoard();
 			Point kLoc;
 			if(turn=='w') {
 				//black
-				 kLoc=Point.getLocation("bK");
-				 if(Point.check(kLoc,kLoc)) {
-					 if(checkToDeath(turn)) {
-						 System.out.println("Checkmate\n White wins");
-						 return;
-					 }else {
-						 System.out.println("Check");
-					 }
-				 }
+				
+				kLoc=Point.getLocation("bK");
+				if(Point.check(kLoc,kLoc)) {
+					if(checkToDeath(turn)) {
+						System.out.println("Checkmate\n White wins");
+						return;
+					}else {
+						System.out.println("Check");
+					}
+				}else if(isStalemate(kLoc)) {
+					System.out.println("Stalemate");
+					System.out.println("draw");
+				}
 			}else {
 				//white
 				kLoc=Point.getLocation("wK");
 				if(Point.check(kLoc,kLoc)) {
-					 if(checkToDeath(turn)) {
-						 System.out.println("Checkmate\n Black wins");
-						 return;
-					 }else {
-						 System.out.println("Check");
-					 }
-				 }
+					if(checkToDeath(turn)) {
+						System.out.println("Checkmate\n Black wins");
+						return;
+					}else {
+						System.out.println("Check");
+					}
+				}else if(isStalemate(kLoc)) {
+					System.out.println("Stalemate");
+					System.out.println("draw");
+				}
 			}
 			
+			
+			
+
 
 		}
-		
+
 	}
 
 }

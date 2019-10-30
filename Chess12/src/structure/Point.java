@@ -24,7 +24,18 @@ public class Point {
 		if(p1.pieceName.charAt(0)==p2.pieceName.charAt(0))return false;
 		return true;
 	}
-	
+	public static boolean isEnemy(Point p1,Point p2) {
+		if(Chess.board[p1.x][p1.y].pieceName.charAt(0)==Chess.board[p1.x][p1.y].pieceName.charAt(0))return false;
+		return true;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj==null||!(obj instanceof Point))return false;
+		Point other=(Point)obj;
+		if(other.x==this.x&&other.y==this.y)return true;
+		return false;
+	}
 	public static Cell findCheck(Point kLoc) {
 		ArrayList<Cell>EnemyListR=new ArrayList<Cell>();
 		//ckeck up row
