@@ -33,6 +33,7 @@ public class Knight extends Cell{
 	}
 	@Override
 	public boolean move(int currX, int currY, int tarX, int tarY) {
+			Chess.enpassant_flag=false;
 		if(tarX>=0 && tarX<=7 && tarY>=0 && tarY<=7 && JudgePos(currX,currY,tarX,tarY) && !(Ownside(Chess.board[currX][currY].pieceName,Chess.board[tarX][tarY].pieceName)))
 		{
 			jump(currX,currY,tarX,tarY);
