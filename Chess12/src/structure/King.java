@@ -18,6 +18,7 @@ public class King extends Cell{
 	@Override
 	public boolean move(int currX, int currY, int tarX, int tarY) {
 		// TODO Auto-generated method stub
+		Chess.enpassant_flag=false;
 		if(tarX<8&&tarX>=0&&tarY<8&&tarY>=0) {
 			if(Math.abs(tarX-currX)<=1&&Math.abs(tarY-currY)<=1) {
 				if(!(tarX==currX&&tarY==currY)) {
