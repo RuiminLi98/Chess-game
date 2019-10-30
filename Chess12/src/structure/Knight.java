@@ -41,23 +41,23 @@ public class Knight extends Cell{
 		}	
 		return false;
 	}
-		public ArrayList<Point> Searcher(){
+	public ArrayList<Point> Searcher(){
 		ArrayList<Point> arr=new ArrayList<Point>();
 		if((this.x)+1 <=7 && (this.y)-2>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+1][(this.y)-2].pieceName) || Chess.board[(this.x)+1][(this.y)-2].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)+1,(this.y)-2));
-		if((this.x)+2 <=7 && (this.y)-1>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+2][(this.y)-1].pieceName) || Chess.board[(this.x)+2][(this.y)-1].pieceName.equals("empty")))))
+		if((this.x)+2 <=7 && (this.y)-1>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+2][(this.y)-1].pieceName) || Chess.board[(this.x)+2][(this.y)-1].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)+2,(this.y)-1));
-		if((this.x)+2 <=7 && (this.y)+1<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+2][(this.y)+1].pieceName) || Chess.board[(this.x)+2][(this.y)+1].pieceName.equals("empty")))))
+		if((this.x)+2 <=7 && (this.y)+1<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+2][(this.y)+1].pieceName) || Chess.board[(this.x)+2][(this.y)+1].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)+2,(this.y)+1));	
-		if((this.x)+1 <=7 && (this.y)+2<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+1][(this.y)+2].pieceName) || Chess.board[(this.x)+1][(this.y)+2].pieceName.equals("empty")))))
+		if((this.x)+1 <=7 && (this.y)+2<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)+1][(this.y)+2].pieceName) || Chess.board[(this.x)+1][(this.y)+2].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)+1,(this.y)+2));	
-		if((this.x)-1 >=0 && (this.y)+2<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-1][(this.y)+2].pieceName) || Chess.board[(this.x)-1][(this.y)+2].pieceName.equals("empty")))))
+		if((this.x)-1 >=0 && (this.y)+2<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-1][(this.y)+2].pieceName) || Chess.board[(this.x)-1][(this.y)+2].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)-1,(this.y)+2));	
-		if((this.x)-2 >=0 && (this.y)+1<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-2][(this.y)+1].pieceName) || Chess.board[(this.x)-2][(this.y)+1].pieceName.equals("empty")))))
+		if((this.x)-2 >=0 && (this.y)+1<=7 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-2][(this.y)+1].pieceName) || Chess.board[(this.x)-2][(this.y)+1].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)-2,(this.y)+1));	
-		if((this.x)-2 >=0 && (this.y)-1>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-2][(this.y)-1].pieceName) || Chess.board[(this.x)-2][(this.y)-1].pieceName.equals("empty")))))
+		if((this.x)-2 >=0 && (this.y)-1>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-2][(this.y)-1].pieceName) || Chess.board[(this.x)-2][(this.y)-1].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)-2,(this.y)-1));
-		if((this.x)-1 >=0 && (this.y)-2>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-1][(this.y)-2].pieceName) || Chess.board[(this.x)-1][(this.y)-2].pieceName.equals("empty")))))
+		if((this.x)-1 >=0 && (this.y)-2>=0 && (!(Ownside(Chess.board[this.x][this.y].pieceName, Chess.board[(this.x)-1][(this.y)-2].pieceName) || Chess.board[(this.x)-1][(this.y)-2].pieceName.equals("empty"))))
 			arr.add(new Point((this.x)-1,(this.y)-2));
 		return arr;
 	}
