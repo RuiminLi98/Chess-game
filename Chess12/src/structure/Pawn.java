@@ -129,6 +129,7 @@ public class Pawn extends Cell implements PawnPromotion{
 		{
 			if(tarX==currX+1 && tarY==currY && Chess.board[currX+1][currY].pieceName.equals("empty"))
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -140,8 +141,6 @@ public class Pawn extends Cell implements PawnPromotion{
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
 					Chess.enpassant_flagy=tarY;}
-				else
-					Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -149,11 +148,13 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX+1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX+1][currY-1].pieceName)) && !(Chess.board[currX+1][currY-1].pieceName.contentEquals("empty")) && tarY>=0)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
 			else if(tarX==currX+1 && tarY == (currY+1) && !(Ownside(pieceName, Chess.board[currX+1][currY+1].pieceName)) && !(Chess.board[currX+1][currY+1].pieceName.contentEquals("empty"))&& tarY<=7)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -163,6 +164,7 @@ public class Pawn extends Cell implements PawnPromotion{
 		{
 			if(tarX==(currX-1) && tarY==currY && Chess.board[currX-1][currY].pieceName.equals("empty"))
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -174,8 +176,6 @@ public class Pawn extends Cell implements PawnPromotion{
 					Chess.enpassant_flag=true;
 					Chess.enpassant_flagx=tarX;
 					Chess.enpassant_flagy=tarY; }
-				else
-					Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -183,11 +183,13 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX-1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX-1][currY-1].pieceName)) && !(Chess.board[currX-1][currY-1].pieceName.contentEquals("empty")) && tarY>=0)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
 			else if(tarX==currX-1 && tarY == (currY+1) && !(Ownside(pieceName, Chess.board[currX-1][currY+1].pieceName)) && !(Chess.board[currX-1][currY+1].pieceName.contentEquals("empty")) && tarY<=7)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				return true;
 			}
@@ -196,6 +198,7 @@ public class Pawn extends Cell implements PawnPromotion{
 		{
 			if(Enpassant("wp", currX, currY, tarX, tarY))
 			{
+				Chess.enpassant_flag=false;
 				String temp3=Chess.board[tarX-1][tarY].cellName;
 				Chess.board[tarX-1][tarY]=new Empty(temp3,"empty",false,tarX-1,tarY);
 				jump(currX,currY,tarX,tarY);
@@ -204,6 +207,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			}
 			if(tarX==currX+1 && tarY==currY && Chess.board[currX+1][currY].pieceName.equals("empty"))
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForW(tarX,tarX,tarY);
 				return true;
@@ -212,12 +216,14 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX+1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX+1][currY-1].pieceName)) && !(Chess.board[currX+1][currY-1].pieceName.contentEquals("empty"))&& tarY>=0)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForW(tarX,tarX,tarY);
 				return true;
 			}
 			else if(tarX==currX+1 && tarY == (currY+1) && !(Ownside(pieceName, Chess.board[currX+1][currY+1].pieceName)) && !(Chess.board[currX+1][currY+1].pieceName.contentEquals("empty"))&& tarY<=7)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForW(tarX,tarX,tarY);
 				return true;
@@ -227,6 +233,7 @@ public class Pawn extends Cell implements PawnPromotion{
 		{
 			if(Enpassant("bp",currX, currY, tarX, tarY))
 			{
+				Chess.enpassant_flag=false;
 				String temp3=Chess.board[tarX+1][tarY].cellName;
 				Chess.board[tarX+1][tarY]=new Empty(temp3,"empty",false,tarX+1,tarY);
 				jump(currX,currY,tarX,tarY);
@@ -235,6 +242,7 @@ public class Pawn extends Cell implements PawnPromotion{
 			}
 			if(tarX==(currX-1) && tarY==currY && Chess.board[currX-1][currY].pieceName.equals("empty"))
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForB(tarX, tarX, tarY);
 				return true;
@@ -243,12 +251,14 @@ public class Pawn extends Cell implements PawnPromotion{
 				return false;
 			else if(tarX==currX-1 && tarY == (currY-1) && !(Ownside(pieceName, Chess.board[currX-1][currY-1].pieceName)) && !(Chess.board[currX-1][currY-1].pieceName.contentEquals("empty"))&& tarY>=0)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForB(tarX, tarX, tarY);
 				return true;
 			}
 			else if(tarX==currX-1 && tarY == (currY+1) && !(Ownside(pieceName, Chess.board[currX-1][currY+1].pieceName)) && !(Chess.board[currX-1][currY+1].pieceName.contentEquals("empty")) && tarY<=7)
 			{
+				Chess.enpassant_flag=false;
 				jump(currX,currY,tarX,tarY);
 				CheckTransPawnForB(tarX, tarX, tarY);
 				return true;
