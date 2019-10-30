@@ -1,12 +1,8 @@
 test case for rook
-h1 h7
-f8 g7
-d1 g4
-e8 e7
-h7 h5
-g7 f8
-a1 a2
-e7 f7
-h5 h7
-f8 g7
-g4 h5
+e2 e4
+e7 e5
+f1 c4
+f8 c5
+d1 h5
+g8 f6
+h5 f7

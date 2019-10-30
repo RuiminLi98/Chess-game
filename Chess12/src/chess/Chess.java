@@ -61,9 +61,14 @@ public class Chess {
 		board[7][1]=new Knight("##", "bN", true,7, 1);
 		board[7][2]=new Bishop("  ", "bB", true,7, 2);
 		board[7][3]=new Queen("##", "bQ", true,7, 3);
+//		board[7][1]=new Empty("##", "Empty", false,7, 1);
+//		board[7][2]=new Empty("  ", "Empty", false,7, 2);
+//		board[7][3]=new Empty("##", "Empty", false,7, 3);
 		board[7][4]=new King("  ", "bK", true,7, 4);
 		board[7][5]=new Bishop("##", "bB", true,7, 5);
 		board[7][6]=new Knight("  ", "bN", true,7, 6);
+//		board[7][5]=new Empty("##", "Empty", false,7, 5);
+//		board[7][6]=new Empty("  ", "Empty", false,7, 6);
 		board[7][7]=new Rook("##", "bR", true,7, 7);
 
 		for(int i=0;i<8;i+=2) {
@@ -95,6 +100,7 @@ public class Chess {
 			board[4][i]=new Empty("  ", "empty", false, 4, i);
 			board[5][i]=new Empty("##", "empty", false, 5, i);
 		}
+//		board[6][4]=new Rook("##", "wR", true,6, 4);
 	}
 
 	public static void printBoard() {
@@ -148,7 +154,9 @@ public class Chess {
 		case 1:{
 			if(turn=='w') {
 				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
-				Chess.jumpBack=false;
+//				Chess.CastlingWS=Chess.CastlingWSPrev;
+//				Chess.CastlingWL=Chess.CastlingWLPrev;
+//				Chess.jumpBack=false;
 				return true;
 			}
 			break;
@@ -156,7 +164,9 @@ public class Chess {
 		case 2:{
 			if(turn=='b') {
 				Chess.board[tarX][tarY].move(tarX, tarY,curX, curY);
-				Chess.jumpBack=false;
+//				Chess.CastlingBS=Chess.CastlingWSPrev;
+//				Chess.CastlingBL=Chess.CastlingWLPrev;
+//				Chess.jumpBack=false;
 				return true;
 			}
 			break;
@@ -167,7 +177,7 @@ public class Chess {
 		}
 
 		}
-		Chess.jumpBack=false;
+//		Chess.jumpBack=false;
 		return false;
 	}
 	
@@ -203,6 +213,12 @@ public class Chess {
 		return path;
 	}
 	
+	
+	/**
+	 * <p> aaaaaasfsdvgfdxvds</p>
+	 * 
+	 * 
+	 */
 	public static boolean checkToDeath(char turn) {
 		Point kLoc;
 		if(turn=='w') {
@@ -265,7 +281,17 @@ public class Chess {
 			}
 			
 			Cell threat=Point.findCheck(kLoc);
-			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y)))return false;
+			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y))) {
+				
+				Cell threat2=Point.findCheck(new Point(threat.x,threat.y));
+				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
+					if(Point.check(new Point(threat.x,threat.y), kLoc)) {
+						return true;
+					}
+				}
+				
+				return false;
+			}
 			if(threat.pieceName.charAt(1)=='N'||threat.pieceName.charAt(1)=='p')return true;
 			
 			ArrayList<Point> path= findPath(kLoc,new Point(threat.x,threat.y));

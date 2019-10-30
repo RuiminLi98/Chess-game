@@ -23,19 +23,19 @@ public class King extends Cell{
 				if(!(tarX==currX&&tarY==currY)) {
 					if(Chess.board[tarX][tarY].pieceName.charAt(0)!=Chess.board[currX][currY].pieceName.charAt(0)) {
 							if(Chess.board[tarX][tarY].pieceName.charAt(0)=='w') {
-								if(!Chess.jumpBack) {
-									Chess.CastlingWSPrev=Chess.CastlingWS;
-									Chess.CastlingWLPrev=Chess.CastlingWL;
-								}
-								Chess.jumpBack=true;
+//								if(!Chess.jumpBack) {
+//									Chess.CastlingWSPrev=Chess.CastlingWS;
+//									Chess.CastlingWLPrev=Chess.CastlingWL;
+//								}
+//								Chess.jumpBack=true;
 								Chess.CastlingWS=false;
 								Chess.CastlingWL=false;
 							}else if(Chess.board[tarX][tarY].pieceName.charAt(0)=='b') {
-								if(!Chess.jumpBack) {
-								Chess.CastlingWSPrev=Chess.CastlingBS;
-								Chess.CastlingWLPrev=Chess.CastlingBL;
-								}
-								Chess.jumpBack=true;
+//								if(!Chess.jumpBack) {
+//								Chess.CastlingWSPrev=Chess.CastlingBS;
+//								Chess.CastlingWLPrev=Chess.CastlingBL;
+//								}
+//								Chess.jumpBack=true;
 								Chess.CastlingBS=false;
 								Chess.CastlingBL=false;
 							}
@@ -115,9 +115,9 @@ public class King extends Cell{
 								&&Chess.board[7][7].pieceName.charAt(1)=='R'
 								) {
 							// black Castling short
-							Chess.BKLoc=new Point(tarX, currY-2);
-							jump(currX, currY, currX, currY-2);
-							jump(7,0,7,currY-1);
+							Chess.BKLoc=new Point(tarX, currY+2);
+							jump(currX, currY, currX, currY+2);
+							jump(7,7,7,currY+1);
 							
 //							if(Point.check(new Point(tarX, tarY-1))) {
 //								jump(currX, currY-2,currX, currY);
@@ -138,9 +138,9 @@ public class King extends Cell{
 								&&Chess.board[7][0].pieceName.charAt(1)=='R'
 								) {
 							// black Castling long
-							Chess.BKLoc=new Point(tarX, currY+2);
-							jump(currX, currY, currX, currY+2);
-							jump(7,7,7,currY+1);
+							Chess.BKLoc=new Point(tarX, currY-2);
+							jump(currX, currY, currX, currY-2);
+							jump(7,0,7,currY-1);
 							
 //							if(Point.check(new Point(tarX, tarY+1))) {
 //								jump(currX, currY+2,currX, currY );
