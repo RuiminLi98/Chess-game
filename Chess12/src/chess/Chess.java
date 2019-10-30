@@ -430,7 +430,7 @@ public class Chess {
 				}
 				if(start.equals("resign"))
 				{
-					System.out.println("Black wins");
+					System.out.println("White wins");
 					return;
 				}
 				else
