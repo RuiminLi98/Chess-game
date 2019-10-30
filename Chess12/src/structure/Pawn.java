@@ -4,6 +4,7 @@ import java.util.*;
 
 import chess.Chess;
 
+
 public class Pawn extends Cell implements PawnPromotion{
 
 	public boolean Ownside(String name1,String name2)
@@ -264,5 +265,87 @@ public class Pawn extends Cell implements PawnPromotion{
 		}
 
 		return false;
+	}
+	
+	public ArrayList<Point> Searcher(){
+		ArrayList<Point> arr=new ArrayList<Point>();
+		if(this.x==1 && pieceName.equals("wp"))
+		{
+			if(Chess.board[(this.x)+1][this.y].pieceName.equals("empty"))
+			{
+				arr.add(new Point((this.x)+1,this.y));
+			}
+			if(Chess.board[(this.x)+2][this.y].pieceName.equals("empty"))
+			{
+				arr.add(new Point((this.x)+2,this.y));
+			}
+			if(!(Ownside(pieceName, Chess.board[this.x+1][this.y-1].pieceName)) && !(Chess.board[this.x+1][this.y-1].pieceName.contentEquals("empty")) && (this.y)-1>=0)
+			{
+				arr.add(new Point((this.x)+1,(this.y)-1));
+			}
+		    if(!(Ownside(pieceName, Chess.board[(this.x)+1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)+1][(this.y)+1].pieceName.contentEquals("empty"))&& (this.y+1)<=7)
+			{
+				arr.add(new Point((this.x)+1,(this.y)+1));
+			}
+
+		}
+		else if(this.x==6 && pieceName.equals("bp"))
+		{
+			if(Chess.board[(this.x)-1][this.y].pieceName.equals("empty"))
+			{
+				arr.add(new Point((this.x)-1,this.y));
+			}
+			if(Chess.board[(this.x)-1][this.y].pieceName.equals("empty"))
+			{
+				arr.add(new Point((this.x)-1,this.y));
+			}
+			if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)-1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)-1].pieceName.contentEquals("empty")) && (this.y)-1>=0)
+			{
+				arr.add(new Point((this.x)-1,(this.y)-1));
+			}
+			if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)+1].pieceName.contentEquals("empty")) && (this.y)+1<=7)
+			{
+				arr.add(new Point((this.x)-1,(this.y)+1));
+			}
+		}
+		if((this.x==2 || this.x==3 ||this.x==4 || this.x==5 || this.x==6) && pieceName.contentEquals("wp"))
+		{
+			if(this.y-1>=0 && this.x+1<=7)
+			{
+				if(Enpassant("wp", this.x, this.y, this.x+1, this.y-1))
+					arr.add(new Point((this.x)+1,(this.y)-1));
+				else if(!(Ownside(pieceName, Chess.board[(this.x)+1][(this.y)-1].pieceName)) && !(Chess.board[(this.x)+1][(this.y)-1].pieceName.contentEquals("empty"))&& (this.y)-1>=0)
+					arr.add(new Point((this.x)+1,(this.y)-1));
+			}
+			if(this.y+1<=7 && this.x+1<=7)
+			{
+				if(Enpassant("wp", this.x, this.y, this.x+1, this.y+1))
+					arr.add(new Point((this.x)+1,(this.y)+1));
+				else if(!(Ownside(pieceName, Chess.board[(this.x)+1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)+1][(this.y)+1].pieceName.contentEquals("empty"))&& (this.y)+1<=7)
+					arr.add(new Point((this.x)+1,(this.y)+1));
+			}
+			if(Chess.board[(this.x)+1][this.y].pieceName.equals("empty"))
+				arr.add(new Point((this.x)+1,this.y));
+		}
+		if((this.x==1 || this.x==2 || this.x==3 ||this.x==4 || this.x==5) && pieceName.contentEquals("bp"))
+		{
+			if((this.x)-1>=0 && (this.y)-1>=0)
+			{
+				if(Enpassant("bp",this.x,this.y , (this.x)-1, (this.y)-1))
+					arr.add(new Point((this.x)-1,(this.y)-1));
+				else if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)-1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)-1].pieceName.contentEquals("empty"))&& (this.y)-1>=0)
+					arr.add(new Point((this.x)-1,(this.y)-1));
+			}
+			if((this.x)-1>=0 && (this.y)+1<=7)
+			{
+				if(Enpassant("bp",this.x,this.y , (this.x)-1, (this.y)+1))
+					arr.add(new Point((this.x)-1,(this.y)+1));
+				else if(!(Ownside(pieceName, Chess.board[(this.x)-1][(this.y)+1].pieceName)) && !(Chess.board[(this.x)-1][(this.y)+1].pieceName.contentEquals("empty")) && (this.y)+1<=7)
+					arr.add(new Point((this.x)-1,(this.y)+1));
+			}
+			if(Chess.board[this.x-1][this.y].pieceName.equals("empty"))
+				arr.add(new Point((this.x)-1,this.y));
+		}
+		return arr;
 	}
 }
