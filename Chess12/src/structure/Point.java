@@ -4,11 +4,27 @@ import java.util.ArrayList;
 
 import chess.Chess;
 
+/** 
+ * @author Junjie He
+ * @author Ruimin Li
+ */
+
+/**
+ * The is a class represent a piece's position in the chessboard
+ * the two elements x and y respectively represent the horizontal and vertical position
+ */
 public class Point {
 	public int x,y;
+	
+	/**
+	 * Initialize the Point object by two parameters 
+	 * @param x represent the horizontal coordinate of the piece 
+	 * @param y represent the vertical coordinate of the piece
+	 */
 	public Point(int x,int y) {
 		this.x=x;this.y=y;
 	}
+
 
 	public static Point getLocation(String pieceName) {
 		for(int i=0;i<8;i++) {
@@ -172,6 +188,11 @@ public class Point {
 		return null;
 	}
 	
+  /**
+   * This function help us to know if the Point kLoc be threatened by enemy pawn
+   * @param kLoc means the current piece, kLoc have its coordinates 
+   * @return If kLoc do threatened by enemy pawn,we return the coordinates of the enemy coordinate
+   */
 	private static Cell PointThreatFromPN(Point kLoc)
 	{
 		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
@@ -210,6 +231,12 @@ public class Point {
 		}
 		return null;
 	}
+	
+	  /**
+	   * This function help us to know if the Point kLoc be threatened by enemy Knight
+	   * @param kLoc means the current piece, kLoc have its coordinates 
+	   * @return If kLoc do threatened by enemy Knight,we return the coordinates of the enemy coordinate
+	   */
 	private static Cell PointTreatFromKN(Point kLoc)
 	{
 	    if(Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
@@ -268,6 +295,7 @@ public class Point {
 	    }
 		return null;
 	}
+	
 	
 	public static boolean checkFromSelf(Point kLoc, Point kLoc2) {
 		ArrayList<Cell>EnemyListR=new ArrayList<Cell>();
@@ -353,6 +381,12 @@ public class Point {
 		return false;
 	}
 
+	/**
+	 * This function can help us know if the piece at kLoc can be threatened by own Pawn/Knight
+	 * @param kLoc the current pieces coordinates
+	 * @param kLoc2 our King's real location
+	 * @return If kLoc do threaten by own pawn or Knight, then true; otherwise, false
+	 */
 	private static boolean threatFromPorNSelf(Point kLoc, Point kLoc2) {
 		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='w')
 		{
