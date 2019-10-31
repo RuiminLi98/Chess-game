@@ -13,44 +13,78 @@ import structure.*;
 
 public class Chess {
 
+	/**
+	 * The main Chess Board
+	 */
 	public static Cell[][] board;
 
+	/**
+	 * The boolean value to record whether White king has right to do long range Castling
+	 */
 	public static boolean CastlingWL;
+
+	/**
+	 * The boolean value to record whether Black king has right to do long range Castling
+	 */
 	public static boolean CastlingBL;
+
+	/**
+	 * The boolean value to record whether Black king has right to do short range Castling
+	 */
 	public static boolean CastlingBS;
+
+	/**
+	 * The boolean value to record whether White king has right to do short range Castling
+	 */
 	public static boolean CastlingWS;
 
 	/**
 	 * The enpassant condition, when it is true, next player have right to enpassant.
 	 */
 	public static boolean enpassant_flag=false;
+
 	/**
-	 * The available enpassant x-coodinate 
+	 * The available enpassant x-coordinate 
 	 */
 	public static int enpassant_flagx=0;
+
 	/**
-	 * The available enpassant y-coodinate
+	 * The available enpassant y-coordinate
 	 */
 	public static int enpassant_flagy=0;
 
+	/**
+	 * The boolean value to record previous status of CastlingWL.
+	 */
 	public static boolean CastlingWLPrev;
+
+	/**
+	 * The boolean value to record previous status of CastlingBL.
+	 */
 	public static boolean CastlingBLPrev;
+
+	/**
+	 * The boolean value to record previous status of CastlingBS.
+	 */
 	public static boolean CastlingBSPrev;
+
+	/**
+	 * The boolean value to record previous status of CastlingWS.
+	 */
 	public static boolean CastlingWSPrev;
 
-	public static boolean jumpBack;
-
-	public static Point WKLoc;
-	public static Point BKLoc;
-	
+	/**
+	 * The Cell of targeting point in movement
+	 */
 	public static Cell previousCell;
 
-	//	public static boolean WCheck;
-	//	public static boolean BCheck;
-	public static boolean draw_flag;
-	
 	/**
-	 * The string list a storing the elements in the input stream
+	 * The draw_flag is to record the draw application, when one side launch a draw application, this flag become true. Otherwise, it always keep false
+	 */
+	public static boolean draw_flag;
+
+	/**
+	 * The string Array list a storing the elements in the input stream
 	 */
 	public static String []a;
 
@@ -64,9 +98,6 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -88,17 +119,17 @@ public class Chess {
 			board[4][i]=new Empty("  ", "empty", false, 4, i);
 			board[5][i]=new Empty("##", "empty", false, 5, i);
 		}
-//		board[0][0]=new Rook("##", "wR", true, 0, 0);
-//		  board[0][6]=new Empty("##", "wK", true, 0, 6);
-//		  board[1][5]=new Empty("##", "wp", true, 1, 5);
-//		  board[1][6]=new Empty("  ", "wp", true, 1, 6);
-//		  board[2][7]=new Empty("  ", "wp", true, 2, 7); 
-//		  board[5][6]=new Empty("  ", "bR", true, 5, 6);
-//		  board[6][5]=new Empty("  ", "bp", true, 6, 5);
-//		  board[6][6]=new Empty("##", "bp", true, 6, 6);
-//		  board[6][7]=new Empty("  ", "bp", true, 6, 7);
-//		  board[7][6]=new Empty("  ", "bK", true, 7, 6);
-		  
+		//		board[0][0]=new Rook("##", "wR", true, 0, 0);
+		//		  board[0][6]=new Empty("##", "wK", true, 0, 6);
+		//		  board[1][5]=new Empty("##", "wp", true, 1, 5);
+		//		  board[1][6]=new Empty("  ", "wp", true, 1, 6);
+		//		  board[2][7]=new Empty("  ", "wp", true, 2, 7); 
+		//		  board[5][6]=new Empty("  ", "bR", true, 5, 6);
+		//		  board[6][5]=new Empty("  ", "bp", true, 6, 5);
+		//		  board[6][6]=new Empty("##", "bp", true, 6, 6);
+		//		  board[6][7]=new Empty("  ", "bp", true, 6, 7);
+		//		  board[7][6]=new Empty("  ", "bK", true, 7, 6);
+
 		board[1][0]=new Bishop("  ", "wB", true, 1, 0);
 		board[1][5]=new King("##", "wK", true, 1, 5);
 		board[2][0]=new Bishop("##", "wB", true, 2, 0);
@@ -116,9 +147,6 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -141,17 +169,17 @@ public class Chess {
 			board[5][i]=new Empty("##", "empty", false, 5, i);
 		}
 		board[7][4]=new King("  ", "bK", true, 7, 4);
-//		board[4][1]=new Pawn("  ", "bp", true, 4, 1);
+		//		board[4][1]=new Pawn("  ", "bp", true, 4, 1);
 		board[6][4]=new Pawn("##", "wp", true, 6, 4);
-//		board[4][4]=new Pawn("##", "bp", true, 4, 4);
-//		board[3][4]=new Pawn("  ", "bp", true, 3, 4);
-//		board[6][1]=new Rook("  ", "wR", true, 6, 1);
-//		board[5][0]=new Rook("  ", "wR", true, 5, 0);
-//		board[3][5]=new Knight("##", "bN", true, 3, 5);
+		//		board[4][4]=new Pawn("##", "bp", true, 4, 4);
+		//		board[3][4]=new Pawn("  ", "bp", true, 3, 4);
+		//		board[6][1]=new Rook("  ", "wR", true, 6, 1);
+		//		board[5][0]=new Rook("  ", "wR", true, 5, 0);
+		//		board[3][5]=new Knight("##", "bN", true, 3, 5);
 		board[5][3]=new Pawn("##", "wp", true, 5, 3);
-//		board[2][6]=new Queen("##", "bQ", true, 2, 6);
-//		board[5][7]=new Pawn("##", "bp", true, 5, 7);
-//		board[2][7]=new Pawn("  ", "wp", true, 2, 7);
+		//		board[2][6]=new Queen("##", "bQ", true, 2, 6);
+		//		board[5][7]=new Pawn("##", "bp", true, 5, 7);
+		//		board[2][7]=new Pawn("  ", "wp", true, 2, 7);
 		board[5][4]=new King("  ", "wK", true, 5, 4);	
 	}
 	public static void InitializeStalemate(){
@@ -163,9 +191,6 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -209,9 +234,6 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -236,7 +258,7 @@ public class Chess {
 		board[7][0]=new King("  ", "bK", true, 7, 0);
 		board[6][3]=new Queen("  ","wQ",true,6,3);
 		board[5][2]=new King("  ", "wK", true, 5, 2);
-//		board[7][7]=new Knight("##", "bN", true, 7, 7);
+		//		board[7][7]=new Knight("##", "bN", true, 7, 7);
 		board[5][7]=new Rook("##", "bR", true, 5, 7);
 		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
 		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
@@ -244,10 +266,10 @@ public class Chess {
 		board[4][7]=new Pawn("  ", "bp", true, 4, 7);
 		board[3][7]=new Pawn("##", "wp", true, 3, 7);
 		board[4][6]=new Pawn("##", "wp", true, 4, 6);
-		
-		
+
+
 	}
-	
+
 	public static void InitializeStalemate3(){
 		Chess.CastlingBL=true;
 		Chess.CastlingWL=true;
@@ -257,9 +279,6 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -284,16 +303,16 @@ public class Chess {
 		board[7][0]=new King("  ", "bK", true, 7, 0);
 		board[3][2]=new Queen("  ","wQ",true,3,2);
 		board[3][4]=new King("  ", "wK", true, 3, 4);
-//		board[7][7]=new Knight("##", "bN", true, 7, 7);
-//		board[5][7]=new Rook("##", "bR", true, 5, 7);
-//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
-//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
-//		board[5][6]=new Pawn("  ", "bp", true, 5, 6);
-//		board[4][7]=new Pawn("  ", "bp", true, 4, 7);
-//		board[3][7]=new Pawn("##", "wp", true, 3, 7);
-//		board[4][6]=new Pawn("##", "wp", true, 4, 6);
-		
-		
+		//		board[7][7]=new Knight("##", "bN", true, 7, 7);
+		//		board[5][7]=new Rook("##", "bR", true, 5, 7);
+		//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+		//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+		//		board[5][6]=new Pawn("  ", "bp", true, 5, 6);
+		//		board[4][7]=new Pawn("  ", "bp", true, 4, 7);
+		//		board[3][7]=new Pawn("##", "wp", true, 3, 7);
+		//		board[4][6]=new Pawn("##", "wp", true, 4, 6);
+
+
 	}
 	public static void InitializeCastling(){
 		CastlingBL=true;
@@ -304,9 +323,6 @@ public class Chess {
 		CastlingBLPrev=true;
 		CastlingBSPrev=true;
 		CastlingWSPrev=true;
-		jumpBack=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
 		board=new Cell[8][8];
 		for(int i=0;i<8;i+=2) {
 			board[0][i]=new Empty("##", "empty", false, 0, i);
@@ -335,8 +351,12 @@ public class Chess {
 		board[6][6]=new Rook("##", "bR", true,6, 6);
 		board[0][7]=new Rook("  ", "wR", true, 0, 7);
 		board[6][5]=new Pawn("  ", "wp", true, 6, 5);
-		
+
 	}
+
+	/**
+	 * This method is going to initialize the Chess board and some global variables
+	 */
 	public static void Initialize(){
 		Chess.CastlingBL=true;
 		Chess.CastlingWL=true;
@@ -346,11 +366,7 @@ public class Chess {
 		Chess.CastlingBLPrev=true;
 		Chess.CastlingBSPrev=true;
 		Chess.CastlingWSPrev=true;
-		jumpBack=false;
-		//		WCheck=false;
-		//		BCheck=false;
-		Chess.WKLoc=new Point(0,4);
-		Chess.BKLoc=new Point(7,4);
+
 		board=new Cell[8][8];
 		board[0][0]=new Rook("##", "wR", true, 0, 0);
 		board[0][1]=new Knight("  ", "wN", true, 0, 1);
@@ -359,24 +375,14 @@ public class Chess {
 		board[0][4]=new King("##", "wK", true, 0, 4);
 		board[0][5]=new Bishop("  ", "wB", true, 0, 5);
 		board[0][6]=new Knight("##", "wN", true, 0, 6);
-		//
-		//		board[0][6]=new Empty("##", "empty", false, 0, 6);
-		//
 		board[0][7]=new Rook("  ", "wR", true, 0, 7);
-
-
 		board[7][0]=new Rook("  ", "bR", true, 7, 0);
 		board[7][1]=new Knight("##", "bN", true,7, 1);
 		board[7][2]=new Bishop("  ", "bB", true,7, 2);
 		board[7][3]=new Queen("##", "bQ", true,7, 3);
-		//		board[7][1]=new Empty("##", "Empty", false,7, 1);
-		//		board[7][2]=new Empty("  ", "Empty", false,7, 2);
-		//		board[7][3]=new Empty("##", "Empty", false,7, 3);
 		board[7][4]=new King("  ", "bK", true,7, 4);
 		board[7][5]=new Bishop("##", "bB", true,7, 5);
 		board[7][6]=new Knight("  ", "bN", true,7, 6);
-		//		board[7][5]=new Empty("##", "Empty", false,7, 5);
-		//		board[7][6]=new Empty("  ", "Empty", false,7, 6);
 		board[7][7]=new Rook("##", "bR", true,7, 7);
 
 		for(int i=0;i<8;i+=2) {
@@ -389,30 +395,22 @@ public class Chess {
 		}
 
 		for(int i=0;i<8;i+=2) {
-			//
-			//						board[1][i]=new Empty("  ", "empty", false, 1, i);
-			//						board[6][i]=new Empty("##", "empty", false, 6, i);
-			//
 			board[2][i]=new Empty("##", "empty", false, 2, i);
 			board[3][i]=new Empty("  ", "empty", false, 3, i);
 			board[4][i]=new Empty("##", "empty", false, 4, i);
 			board[5][i]=new Empty("  ", "empty", false, 5, i);
 		}
 		for(int i=1;i<8;i+=2) {
-			//
-			//						board[1][i]=new Empty("##", "empty", false, 1, i);
-			//						board[6][i]=new Empty("  ", "empty", false, 6, i);
-			//
 			board[2][i]=new Empty("  ", "empty", false, 2, i);
 			board[3][i]=new Empty("##", "empty", false, 3, i);
 			board[4][i]=new Empty("  ", "empty", false, 4, i);
 			board[5][i]=new Empty("##", "empty", false, 5, i);
 		}
-		//		board[6][4]=new Rook("##", "wR", true,6, 4);
+
 	}
 
 	/**
-	 * This function can print the chessboard we need based on the 2-dimension array board.
+	 * This function can print the chess board we need based on the 2-dimension array board.
 	 */
 	public static void printBoard() {
 		for(int i=7;i>=0;i--) {
@@ -437,6 +435,7 @@ public class Chess {
 		System.out.println();
 		System.out.println();
 	}
+
 	/**
 	 * This method can change the character of the chessboard to digit we should use in later function
 	 * @param c This parameter is the character we need to transfer to digit
@@ -447,12 +446,11 @@ public class Chess {
 		return (int)c-97;
 	}
 
+	/**
+	 * This method is going to check whether the kings are checked
+	 * @return Integer: 0 for not check; 1 for white king is checked; 2 for black king is checked; 3 for both
+	 */
 	public static int isCheckmate() {
-		//return 0 for not checkmate
-		//return 1 for white king is checked
-		//return 2 for black king is checked
-		//return 3 for both
-
 		Point WKLoc=Point.getLocation("wK");
 		Point BKLoc=Point.getLocation("bK");
 		if(Point.check(WKLoc,WKLoc)&&Point.check(BKLoc,BKLoc))return 3;
@@ -460,10 +458,21 @@ public class Chess {
 		if(Point.check(BKLoc,BKLoc))return 2;
 		return 0;
 	}
+
+	/**
+	 * This method is going to Convert a Point to a Cell
+	 * @param p An input point
+	 * @return A converted Cell on the board
+	 */
 	public static Cell getCell(Point p) {
 		return Chess.board[p.x][p.y];
 	}
-	
+
+	/**
+	 * Create a copy of a certain piece
+	 * @param c The original Cell
+	 * @return The copy of original Cell
+	 */
 	public static Cell copyCell(Cell c) {
 		if(c.pieceName.charAt(1)=='K') {
 			return new King(c.cellName,c.pieceName,c.isAlive,c.x,c.y);
@@ -485,7 +494,7 @@ public class Chess {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * This method can judge if the piece in the point kLoc have possible movement in the next step
 	 * @param kLoc This represent the coordinate of the piece we are judging
@@ -500,7 +509,7 @@ public class Chess {
 				}
 			}
 		}
-		
+
 		for(Point p:myPieces) {
 			ArrayList<Point>possLoc=Chess.board[p.x][p.y].Searcher();
 			if(possLoc==null)continue;
@@ -528,7 +537,7 @@ public class Chess {
 						Cell.jump( poss.x, poss.y,p.x, p.y);
 					}
 				}
-				
+
 				else {
 					//Other piece move
 					if(getCell(poss).isAlive) {
@@ -546,7 +555,7 @@ public class Chess {
 						}
 						Cell.jump( poss.x, poss.y,p.x, p.y);
 					}
-					
+
 				}
 			}
 			if(count>0) {
@@ -556,10 +565,20 @@ public class Chess {
 		return true;
 	}
 
+
+	/**
+	 * Detect whether the last movement is illegal
+	 * @param turn w means last turn is White. b means last turn is Black
+	 * @param curX The x-coordinate of starting point in the movement.
+	 * @param curY The y-coordinate of starting point in the movement.
+	 * @param tarX The x-coordinate of targeting point in the movement.
+	 * @param tarY The y-coordinate of targeting point in the movement.
+	 * @return true if the movement is illegal.
+	 */
 	public static boolean Illegalmove(char turn,int curX,int curY,int tarX,int tarY) {
 		switch(isCheckmate()) {
 		case 0:{
-			Chess.jumpBack=false;
+
 			return false;
 		}
 		case 1:{
@@ -596,6 +615,12 @@ public class Chess {
 		return false;
 	}
 
+	/**
+	 * The method is going to find a path from p1 to p2.
+	 * @param p1 The starting point
+	 * @param p2 The targeting point
+	 * @return The arraylist contains all of the point on path
+	 */
 	public static ArrayList<Point> findPath(Point p1,Point p2){
 		ArrayList<Point> path=new ArrayList<Point>();
 		if(p1.x==p2.x) {
@@ -698,11 +723,11 @@ public class Chess {
 			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y))) {
 
 				Cell threat2=Point.findCheck(new Point(threat.x,threat.y));
-//				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
-					if(Point.check(new Point(threat.x,threat.y), kLoc)) {
-						return true;
-					}
-//				}
+				//				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
+				if(Point.check(new Point(threat.x,threat.y), kLoc)) {
+					return true;
+				}
+				//				}
 
 				return false;
 			}
@@ -732,9 +757,9 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//				Initialize();
+		//				Initialize();
 		InitializeCheckmate();
-//		InitializeCastling();
+		//		InitializeCastling();
 		printBoard();
 		Scanner sc=new Scanner(System.in);
 		int count=0;
@@ -870,7 +895,7 @@ public class Chess {
 			Point kLoc;
 			if(turn=='w') {
 				//black
-				
+
 				kLoc=Point.getLocation("bK");
 				if(Point.check(kLoc,kLoc)) {
 					if(checkToDeath(turn)) {

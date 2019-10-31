@@ -83,7 +83,7 @@ public class Knight extends Cell{
 
 	/**
 	 * This method is going to search all of the possible location where the Knight can reach.
-	 * @return The ArrayList<Point> contains all of the possible locations. Null if no possible location.
+	 * @return The ArrayList contains all of the possible locations. Null if no possible location.
 	 */
 	public ArrayList<Point> Searcher(){
 		ArrayList<Point> arr=new ArrayList<Point>();

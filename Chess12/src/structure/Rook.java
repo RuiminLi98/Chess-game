@@ -88,7 +88,7 @@ public class Rook extends Cell{
 	 * This method is going to search all of the possible location where the rook can reach.
 	 * @param currX The x-coordinate of Rook
 	 * @param currY The y-coordinate of Rook
-	 * @return The ArrayList<Integer[]> contains all of the possible locations.
+	 * @return The ArrayList contains all of the possible locations.
 	 */
 	public ArrayList<Integer[]> detector(int currX, int currY){
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
@@ -167,7 +167,7 @@ public class Rook extends Cell{
 	}
 	/**
 	 * This method is going to search all of the possible location where the Rook can reach.
-	 * @return The ArrayList<Point> contains all of the possible locations. Null if no possible location.
+	 * @return The ArrayList contains all of the possible locations. Null if no possible location.
 	 */
 	@Override
 	public ArrayList<Point> Searcher() {

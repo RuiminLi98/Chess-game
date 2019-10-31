@@ -35,7 +35,7 @@ public class King extends Cell{
 	 * @param tarY The y-coordinate of targeting point in the movement.
 	 * @return True if there is at least one piece in the Castling path. False, if the path is clear for Castling.
 	 */
-	private boolean haveObs(int currX, int currY,int tarY) {
+	public boolean haveObs(int currX, int currY,int tarY) {
 		for(int i=Math.min(currY, tarY)+1;i<Math.max(tarY, currY);i++) {
 			if(Chess.board[currX][i].isAlive)return true;
 		}
@@ -74,11 +74,7 @@ public class King extends Cell{
 							Chess.CastlingBS=false;
 							Chess.CastlingBL=false;
 						}
-						if(Chess.board[currX][currY].pieceName.charAt(0)=='w') {
-							Chess.WKLoc=new Point(tarX,tarY);
-						}else {
-							Chess.BKLoc=new Point(tarX,tarY);
-						}
+						
 						jump(currX, currY, tarX, tarY);
 						Chess.enpassant_flag=false;
 						return true;
@@ -101,7 +97,7 @@ public class King extends Cell{
 							) {
 						// white Castling long
 
-						Chess.WKLoc=new Point(tarX, currY-2);
+						
 
 						jump(currX, currY, tarX, currY-2);
 						jump(0,0,0,currY-1);
@@ -126,7 +122,7 @@ public class King extends Cell{
 							&&Chess.board[0][7].pieceName.charAt(1)=='R'
 							) {
 						// white Castling short
-						Chess.WKLoc=new Point(tarX, currY+2);
+						
 						jump(currX, currY, tarX, currY+2);
 						jump(0,7,0,currY+1);
 
@@ -151,8 +147,7 @@ public class King extends Cell{
 							&&!Point.isEnemy(Chess.board[7][7], curr)
 							&&Chess.board[7][7].pieceName.charAt(1)=='R'
 							) {
-						// black Castling short
-						Chess.BKLoc=new Point(tarX, currY+2);
+						// black Castling shortChess.BKLoc=new Point(tarX, currY+2);
 						jump(currX, currY, currX, currY+2);
 						jump(7,7,7,currY+1);
 
@@ -176,7 +171,7 @@ public class King extends Cell{
 							&&Chess.board[7][0].pieceName.charAt(1)=='R'
 							) {
 						// black Castling long
-						Chess.BKLoc=new Point(tarX, currY-2);
+						
 						jump(currX, currY, currX, currY-2);
 						jump(7,0,7,currY-1);
 

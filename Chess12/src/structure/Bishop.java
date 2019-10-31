@@ -56,7 +56,7 @@ public class Bishop extends Cell{
 	 * @param arr My Integer Array contains x and y coordinates
 	 * @return True if contains. Otherwise, return false.
 	 */
-	private boolean contains(ArrayList<Integer[]> list,Integer[] arr) {
+	public boolean contains(ArrayList<Integer[]> list,Integer[] arr) {
 		for(Integer[] a:list) {
 			if(a[0]==arr[0]&&a[1]==arr[1])return true;
 		}
@@ -67,9 +67,9 @@ public class Bishop extends Cell{
 	 * This method is going to search all of the possible location where the Bishop can reach.
 	 * @param currX The x-coordinate of Bishop
 	 * @param currY The y-coordinate of Bishop
-	 * @return The ArrayList<Integer[]> contains all of the possible locations.
+	 * @return The ArrayList contains all of the possible locations.
 	 */
-	private ArrayList<Integer[]> detector(int currX, int currY){
+	public ArrayList<Integer[]> detector(int currX, int currY){
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
 		// Detect right up dig
 		for(int i=currX+1,j=currY+1;i<8&&j<8;i++,j++) {
@@ -152,7 +152,7 @@ public class Bishop extends Cell{
 	
 	/**
 	 * This method is going to search all of the possible location where the Bishop can reach.
-	 * @return The ArrayList<Point> contains all of the possible locations. Null if no possible location.
+	 * @return The ArrayList contains all of the possible locations. Null if no possible location.
 	 */
 	@Override
 	public ArrayList<Point> Searcher() {

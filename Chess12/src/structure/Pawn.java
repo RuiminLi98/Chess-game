@@ -343,7 +343,7 @@ public class Pawn extends Cell implements PawnPromotion{
 	
 	/**
 	 * This method is going to search all of the possible location where the Pawn can reach.
-	 * @return The ArrayList<Point> contains all of the possible locations. Null if no possible location.
+	 * @return The ArrayList contains all of the possible locations. Null if no possible location.
 	 */
 	public ArrayList<Point> Searcher(){
 		ArrayList<Point> arr=new ArrayList<Point>();
