@@ -36,7 +36,152 @@ public class Chess {
 	public static String []a;
 
 
+	public static void InitializeCheckmate(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+//		board[0][0]=new Rook("##", "wR", true, 0, 0);
+//		  board[0][6]=new Empty("##", "wK", true, 0, 6);
+//		  board[1][5]=new Empty("##", "wp", true, 1, 5);
+//		  board[1][6]=new Empty("  ", "wp", true, 1, 6);
+//		  board[2][7]=new Empty("  ", "wp", true, 2, 7); 
+//		  board[5][6]=new Empty("  ", "bR", true, 5, 6);
+//		  board[6][5]=new Empty("  ", "bp", true, 6, 5);
+//		  board[6][6]=new Empty("##", "bp", true, 6, 6);
+//		  board[6][7]=new Empty("  ", "bp", true, 6, 7);
+//		  board[7][6]=new Empty("  ", "bK", true, 7, 6);
+		  
+		board[1][0]=new Bishop("  ", "wB", true, 1, 0);
+		board[1][5]=new King("##", "wK", true, 1, 5);
+		board[2][0]=new Bishop("##", "wB", true, 2, 0);
+		board[5][1]=new Pawn("##", "bp", true, 5, 1);
+		board[6][0]=new Pawn("##", "bp", true, 6, 0);
+		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+		board[7][7]=new King("##", "bK", true, 7, 7);
+	}
+	public static void InitializeCheckmate2(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+		board[7][4]=new King("  ", "bK", true, 7, 4);
+//		board[4][1]=new Pawn("  ", "bp", true, 4, 1);
+		board[6][4]=new Pawn("##", "wp", true, 6, 4);
+//		board[4][4]=new Pawn("##", "bp", true, 4, 4);
+//		board[3][4]=new Pawn("  ", "bp", true, 3, 4);
+//		board[6][1]=new Rook("  ", "wR", true, 6, 1);
+//		board[5][0]=new Rook("  ", "wR", true, 5, 0);
+//		board[3][5]=new Knight("##", "bN", true, 3, 5);
+		board[5][3]=new Pawn("##", "wp", true, 5, 3);
+//		board[2][6]=new Queen("##", "bQ", true, 2, 6);
+//		board[5][7]=new Pawn("##", "bp", true, 5, 7);
+//		board[2][7]=new Pawn("  ", "wp", true, 2, 7);
+		board[5][4]=new King("  ", "wK", true, 5, 4);	
+	}
 	public static void InitializeStalemate(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+		board[6][6]=new King("##", "bK", true, 6, 6);
+		board[4][1]=new Pawn("  ", "bp", true, 4, 1);
+		board[3][1]=new Pawn("##", "wp", true, 3, 1);
+		board[4][4]=new Pawn("##", "bp", true, 4, 4);
+		board[3][4]=new Pawn("  ", "bp", true, 3, 4);
+		board[1][4]=new Rook("  ", "bR", true, 1, 4);
+		board[3][5]=new Knight("##", "bN", true, 3, 5);
+		board[2][5]=new Pawn("  ", "wP", true, 2, 5);
+		board[2][6]=new Queen("##", "bQ", true, 2, 6);
+		board[5][7]=new Pawn("##", "bp", true, 5, 7);
+		board[2][7]=new Pawn("  ", "wp", true, 2, 7);
+		board[0][7]=new King("  ", "wK", true, 0, 7);	
+	}
+	public static void InitializeStalemate2(){
 		Chess.CastlingBL=true;
 		Chess.CastlingWL=true;
 		Chess.CastlingBS=true;
@@ -72,10 +217,65 @@ public class Chess {
 		board[7][0]=new King("  ", "bK", true, 7, 0);
 		board[6][3]=new Queen("  ","wQ",true,6,3);
 		board[5][2]=new King("  ", "wK", true, 5, 2);
-		board[3][7]=new Pawn("##", "bP", true, 3, 7);
-		//		board[2][7]=new Pawn("  ", "wP", true, 2, 7);
+//		board[7][7]=new Knight("##", "bN", true, 7, 7);
+		board[5][7]=new Rook("##", "bR", true, 5, 7);
+		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+		board[5][6]=new Pawn("  ", "bp", true, 5, 6);
+		board[4][7]=new Pawn("  ", "bp", true, 4, 7);
+		board[3][7]=new Pawn("##", "wp", true, 3, 7);
+		board[4][6]=new Pawn("##", "wp", true, 4, 6);
+		
+		
 	}
 	
+	public static void InitializeStalemate3(){
+		Chess.CastlingBL=true;
+		Chess.CastlingWL=true;
+		Chess.CastlingBS=true;
+		Chess.CastlingWS=true;
+		Chess.CastlingWLPrev=true;
+		Chess.CastlingBLPrev=true;
+		Chess.CastlingBSPrev=true;
+		Chess.CastlingWSPrev=true;
+		jumpBack=false;
+		Chess.WKLoc=new Point(0,4);
+		Chess.BKLoc=new Point(7,4);
+		board=new Cell[8][8];
+		for(int i=0;i<8;i+=2) {
+			board[0][i]=new Empty("##", "empty", false, 0, i);
+			board[1][i]=new Empty("  ", "empty", false, 1, i);
+			board[6][i]=new Empty("##", "empty", false, 6, i);
+			board[7][i]=new Empty("  ", "empty", false, 7, i);
+			board[2][i]=new Empty("##", "empty", false, 2, i);
+			board[3][i]=new Empty("  ", "empty", false, 3, i);
+			board[4][i]=new Empty("##", "empty", false, 4, i);
+			board[5][i]=new Empty("  ", "empty", false, 5, i);
+		}
+		for(int i=1;i<8;i+=2) {
+			board[0][i]=new Empty("  ", "empty", false, 0, i);
+			board[1][i]=new Empty("##", "empty", false, 1, i);
+			board[6][i]=new Empty("  ", "empty", false, 6, i);
+			board[7][i]=new Empty("##", "empty", false, 7, i);
+			board[2][i]=new Empty("  ", "empty", false, 2, i);
+			board[3][i]=new Empty("##", "empty", false, 3, i);
+			board[4][i]=new Empty("  ", "empty", false, 4, i);
+			board[5][i]=new Empty("##", "empty", false, 5, i);
+		}
+		board[7][0]=new King("  ", "bK", true, 7, 0);
+		board[3][2]=new Queen("  ","wQ",true,3,2);
+		board[3][4]=new King("  ", "wK", true, 3, 4);
+//		board[7][7]=new Knight("##", "bN", true, 7, 7);
+//		board[5][7]=new Rook("##", "bR", true, 5, 7);
+//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+//		board[6][7]=new Pawn("  ", "bp", true, 6, 7);
+//		board[5][6]=new Pawn("  ", "bp", true, 5, 6);
+//		board[4][7]=new Pawn("  ", "bp", true, 4, 7);
+//		board[3][7]=new Pawn("##", "wp", true, 3, 7);
+//		board[4][6]=new Pawn("##", "wp", true, 4, 6);
+		
+		
+	}
 	public static void InitializeCastling(){
 		CastlingBL=true;
 		CastlingWL=true;
@@ -300,18 +500,18 @@ public class Chess {
 					//Other piece move
 					if(getCell(poss).isAlive) {
 						Cell temp=copyCell(getCell(poss));
-						Chess.board[p.x][p.y].move(p.x, p.y, poss.x, poss.y);
+						Cell.jump(p.x, p.y, poss.x, poss.y);
 						if(Point.check(kLoc, kLoc)) {
 							count--;
 						}
-						Chess.board[poss.x][poss.y].move(poss.x, poss.y,p.x, p.y);
+						Cell.jump( poss.x, poss.y,p.x, p.y);
 						Chess.board[poss.x][poss.y]=temp;
 					}else {
-						Chess.board[p.x][p.y].move(p.x, p.y, poss.x, poss.y);
+						Cell.jump(p.x, p.y, poss.x, poss.y);
 						if(Point.check(kLoc, kLoc)) {
 							count--;
 						}
-						Chess.board[poss.x][poss.y].move(poss.x, poss.y,p.x, p.y);
+						Cell.jump( poss.x, poss.y,p.x, p.y);
 					}
 					
 				}
@@ -460,11 +660,11 @@ public class Chess {
 			if(Point.check(new Point(threat.x,threat.y),new Point(threat.x,threat.y))) {
 
 				Cell threat2=Point.findCheck(new Point(threat.x,threat.y));
-				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
+//				if(threat2.pieceName.equals(Chess.board[kLoc.x][kLoc.y].pieceName)) {
 					if(Point.check(new Point(threat.x,threat.y), kLoc)) {
 						return true;
 					}
-				}
+//				}
 
 				return false;
 			}
@@ -490,9 +690,9 @@ public class Chess {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//		Initialize();
-//		InitializeStalemate();
-		InitializeCastling();
+//				Initialize();
+		InitializeCheckmate();
+//		InitializeCastling();
 		printBoard();
 		Scanner sc=new Scanner(System.in);
 		int count=0;
@@ -605,7 +805,7 @@ public class Chess {
 				}
 				if(start.equals("resign"))
 				{
-					System.out.println("Black wins");
+					System.out.println("White wins");
 					return;
 				}
 				else
@@ -632,7 +832,7 @@ public class Chess {
 				kLoc=Point.getLocation("bK");
 				if(Point.check(kLoc,kLoc)) {
 					if(checkToDeath(turn)) {
-						System.out.println("Checkmate\n White wins");
+						System.out.println("Checkmate\nWhite wins");
 						return;
 					}else {
 						System.out.println("Check");
@@ -640,13 +840,14 @@ public class Chess {
 				}else if(isStalemate(kLoc)) {
 					System.out.println("Stalemate");
 					System.out.println("draw");
+					return;
 				}
 			}else {
 				//white
 				kLoc=Point.getLocation("wK");
 				if(Point.check(kLoc,kLoc)) {
 					if(checkToDeath(turn)) {
-						System.out.println("Checkmate\n Black wins");
+						System.out.println("Checkmate\nBlack wins");
 						return;
 					}else {
 						System.out.println("Check");
@@ -654,8 +855,10 @@ public class Chess {
 				}else if(isStalemate(kLoc)) {
 					System.out.println("Stalemate");
 					System.out.println("draw");
+					return;
 				}
 			}
+			
 			
 			
 			

@@ -603,12 +603,16 @@ public class Point {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y-1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
 			}
 		}
 		
 		if(inScale(kLoc.x-1, kLoc.y)) {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
@@ -617,11 +621,15 @@ public class Point {
 			Cell c=Chess.board[kLoc.x-1][kLoc.y+1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
 			}
 		}
 		if(inScale(kLoc.x, kLoc.y-1)) {
 			Cell c=Chess.board[kLoc.x][kLoc.y-1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
@@ -629,11 +637,15 @@ public class Point {
 			Cell c=Chess.board[kLoc.x][kLoc.y+1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
 			}
 		}
 		if(inScale(kLoc.x+1, kLoc.y-1)) {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y-1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
 			}
 		}
@@ -641,14 +653,23 @@ public class Point {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
 			}
 		}
 		if(inScale(kLoc.x+1, kLoc.y+1)) {
 			Cell c=Chess.board[kLoc.x+1][kLoc.y+1];
 			if(c.isAlive&&c.pieceName.charAt(1)=='K'&&isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
 				return true;
+			}else if(c.isAlive&&c.pieceName.charAt(1)=='K'&&!isEnemy(c, Chess.board[kLoc2.x][kLoc2.y])) {
+				return true;
 			}
 		}
+//		if(Chess.getCell(kLoc2).pieceName.charAt(0)=='w') {
+//			kLoc2=getLocation("bK");
+//		}else {
+//			kLoc2=getLocation("wK");
+//		}
 		if(threatFromPorN(kLoc,kLoc2)) {
 			return true;
 		}
