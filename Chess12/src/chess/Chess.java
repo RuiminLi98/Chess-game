@@ -87,6 +87,9 @@ public class Chess {
 	 * The string Array list a storing the elements in the input stream
 	 */
 	public static String []a;
+	
+	
+	
 
 
 	public static void InitializeCheckmate(){
@@ -760,10 +763,13 @@ public class Chess {
 						Initialize();
 //		InitializeCheckmate();
 		//		InitializeCastling();
+//		drawer='w';
+						int drawer=0;
 		printBoard();
 		Scanner sc=new Scanner(System.in);
 		int count=0;
 		while(true) {
+			
 			String start="";
 			String end="";
 			char turn=' ';
@@ -777,9 +783,9 @@ public class Chess {
 			a=line.split(" ");
 			int num=a.length;
 			start=a[0];
-			if(start.equals("draw") && draw_flag==true)
+			if(start.equals("draw") && draw_flag==true&&drawer!=count)
 			{
-
+				
 				//				System.out.println("We draw successfully");
 				return;
 			}
@@ -798,7 +804,8 @@ public class Chess {
 					end=a[1];
 					if(num==3) {
 						if(a[2].equals("draw?"))
-							draw_flag=true;}
+							draw_flag=true;
+						drawer=count;}
 					turn='w';
 					System.out.println();}
 			}else {
@@ -813,7 +820,8 @@ public class Chess {
 					end=a[1];
 					if(num==3) {
 						if(a[2].equals("draw?"))
-							draw_flag=true;}
+							draw_flag=true;
+						drawer=count;}
 					turn='b';
 					System.out.println();
 				}
@@ -832,7 +840,7 @@ public class Chess {
 				a=line.split(" ");
 				num=a.length;
 				start=a[0];
-				if(start.equals("draw") && draw_flag==true)
+				if(start.equals("draw") && draw_flag==true&&drawer!=count-1)
 				{
 
 					//					System.out.println("We draw successfully");
@@ -852,7 +860,8 @@ public class Chess {
 					end=a[1];
 					if(num==3) {
 						if(a[2].equals("draw?"))
-							draw_flag=true;}
+							draw_flag=true;
+						drawer=count;}
 					System.out.println();}}
 				else
 				{turn='b';
@@ -860,7 +869,7 @@ public class Chess {
 				a=line.split(" ");
 				num=a.length;
 				start=a[0];
-				if(start.equals("draw") && draw_flag==true)
+				if(start.equals("draw") && draw_flag==true&&drawer!=count-1)
 				{
 
 					//					System.out.println("We draw successfully");
@@ -880,7 +889,8 @@ public class Chess {
 					end=a[1];
 					if(num==3) {
 						if(a[2].equals("draw?"))
-							draw_flag=true;}
+							draw_flag=true;
+						drawer=count;}
 					System.out.println();}
 				}
 				curX=parseLocation(start.charAt(1));
