@@ -757,8 +757,8 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//				Initialize();
-		InitializeCheckmate();
+						Initialize();
+//		InitializeCheckmate();
 		//		InitializeCastling();
 		printBoard();
 		Scanner sc=new Scanner(System.in);
