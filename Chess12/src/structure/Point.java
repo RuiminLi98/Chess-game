@@ -649,7 +649,7 @@ public class Point {
 				return true;
 			}
 		}
-		if(threatFromPorN(kLoc)) {
+		if(threatFromPorN(kLoc,kLoc2)) {
 			return true;
 		}
 		return false;
@@ -658,8 +658,8 @@ public class Point {
 		if(x<8&&x>=0&&y>=0&&y<8)return true;
 		return false;
 	}
-	private static boolean threatFromPorN(Point kLoc) {		
-		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+	private static boolean threatFromPorN(Point kLoc, Point kLoc2) {		
+		if((kLoc.x==0 || kLoc.x==1) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='b')
 		{
 			if((kLoc.x)+1 <=7 && (kLoc.y)-2>=0)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("wN")) 
@@ -686,7 +686,7 @@ public class Point {
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("wN"))
 					return true;
 		}
-		if((kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='b')
+		if((kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5 || kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='b')
 		{
 			if(kLoc.x-1>=0 && kLoc.y-1>=0)
 			{
@@ -726,7 +726,7 @@ public class Point {
 
 
 		
-		if((kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+		if((kLoc.x==6 || kLoc.x==7) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='w')
 		{
 			if((kLoc.x)+1 <=7 && (kLoc.y)-2>=0)
 				if(Chess.board[(kLoc.x)+1][(kLoc.y)-2].pieceName.equals("bN")) 
@@ -753,7 +753,7 @@ public class Point {
 				if(Chess.board[(kLoc.x)-1][(kLoc.y)-2].pieceName.equals("bN"))
 					return true;
 		}
-		if((kLoc.x==0 || kLoc.x==1 || kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5) && Chess.board[kLoc.x][kLoc.y].pieceName.charAt(0)=='w')
+		if((kLoc.x==0 || kLoc.x==1 || kLoc.x==2 || kLoc.x==3 || kLoc.x==4 || kLoc.x==5) && Chess.board[kLoc2.x][kLoc2.y].pieceName.charAt(0)=='w')
 		{
 			if(kLoc.x+1<=7 && kLoc.y-1>=0)
 			{
