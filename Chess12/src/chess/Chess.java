@@ -1,9 +1,15 @@
 package chess;
 
+/** 
+ * @author Junjie He
+ * @author Ruimin Li
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import structure.*;
+
 
 public class Chess {
 
@@ -14,8 +20,17 @@ public class Chess {
 	public static boolean CastlingBS;
 	public static boolean CastlingWS;
 
+	/**
+	 * The enpassant condition, when it is true, next player have right to enpassant.
+	 */
 	public static boolean enpassant_flag=false;
+	/**
+	 * The available enpassant x-coodinate 
+	 */
 	public static int enpassant_flagx=0;
+	/**
+	 * The available enpassant y-coodinate
+	 */
 	public static int enpassant_flagy=0;
 
 	public static boolean CastlingWLPrev;
@@ -33,6 +48,10 @@ public class Chess {
 	//	public static boolean WCheck;
 	//	public static boolean BCheck;
 	public static boolean draw_flag;
+	
+	/**
+	 * The string list a storing the elements in the input stream
+	 */
 	public static String []a;
 
 
@@ -392,6 +411,9 @@ public class Chess {
 		//		board[6][4]=new Rook("##", "wR", true,6, 4);
 	}
 
+	/**
+	 * This function can print the chessboard we need based on the 2-dimension array board.
+	 */
 	public static void printBoard() {
 		for(int i=7;i>=0;i--) {
 			for(int j=0;j<8;j++) {
@@ -415,6 +437,11 @@ public class Chess {
 		System.out.println();
 		System.out.println();
 	}
+	/**
+	 * This method can change the character of the chessboard to digit we should use in later function
+	 * @param c This parameter is the character we need to transfer to digit
+	 * @return We return the digit we need
+	 */
 	public static int parseLocation (char c) {
 		if(Character.isDigit(c))return Integer.parseInt(c+"")-1;
 		return (int)c-97;
@@ -458,6 +485,12 @@ public class Chess {
 		}
 		return null;
 	}
+	
+	/**
+	 * This method can judge if the piece in the point kLoc have possible movement in the next step
+	 * @param kLoc This represent the coordinate of the piece we are judging
+	 * @return If this piece cannot be moved in next step, then return true. Otherwise, false.
+	 */
 	public static boolean isStalemate(Point kLoc) {
 		ArrayList<Point> myPieces = new ArrayList<Point>();
 		for(int i=0;i<8;i++) {
@@ -595,6 +628,11 @@ public class Chess {
 		return path;
 	}
 
+	/**
+	 * This function can tell if the game is checkmate
+	 * @param turn The turn represent which side just move
+	 * @return If the game is checkmate, then return true, else return false
+	 */
 	public static boolean checkToDeath(char turn) {
 		Point kLoc;
 		if(turn=='w') {
@@ -688,6 +726,10 @@ public class Chess {
 
 	}
 
+	/**
+	 * This is our main method, this method will call all the function we created
+	 * @param args The command line arguments.
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //				Initialize();
@@ -858,12 +900,6 @@ public class Chess {
 					return;
 				}
 			}
-			
-			
-			
-			
-
-
 		}
 
 	}
